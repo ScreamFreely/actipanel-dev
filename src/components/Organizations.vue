@@ -3,15 +3,16 @@
 
     <el-row v-for="o in orgs" :gutter="24" type="flex" class="row-bg" justify="center">
       <el-col :span="18" class="baseBorder">
-        <h2><a :href="'organization/' + o.id">{{o.name}}</a></h2> {{o.jurisdiction.name}}
+        <h2><a :href="'organization/' + o.id">{{o.name}}</a></h2>
+	<span v-if="o.parent !== null">{{o.parent.name}}</span>
 	<el-row :span="18"> 
-	  <div v-if="o.memberships.length > 0 && o.memberships[0].person !== null">
+	  <div v-if="o.memberships.length > 0">
 	    <el-collapse @change="handleChange">
-	      <el-collapse-item>
+	      <el-collapse-item v-if="o.memberships[0].person !== null">
 		<template slot="title"><h3>Memberships</h3></template>
 		<div v-for="m in o.memberships" v-if="m.person !== null">
 		  <a :href="'/person/' + m.person.id">{{m.person.name}}</a>
-		</Div>
+		</div>
 	      </el-collapse-item>
 	    </el-collapse>
 	  </div>
