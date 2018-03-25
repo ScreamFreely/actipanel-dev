@@ -1,0 +1,25 @@
+{
+  "name": "mnactivistfe",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mnact.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/DreamFreely/MnAFE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/DreamFreely/MnAFE/issues"
+  },
+  "homepage": "https://gitlab.com/DreamFreely/MnAFE#README",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "connect-history-api-fallback": "^1.5.0",
+    "express": "^4.16.2",
+    "stripe": "^5.4.0"
+  }
+}
