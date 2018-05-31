@@ -27,7 +27,7 @@
      </el-row>
      
      <el-row class="auxRow">
-     <el-col :push="8">
+     <el-col :push="15">
          <el-col v-for="l in basics" :span="4" :offset="1">
 	  	<small><router-link :to="l.link">{{l.name}}</router-link></small>
           </el-col>
@@ -54,7 +54,7 @@ export default {
       basics:[
 //      { name: 'Membership', link: '/support' },
 //      { name: 'Mailing list', link: '/member' },
-      { name: 'Resources', link: '/resources' },
+//      { name: 'Resources', link: '/resources' },
       { name: 'About', link: '/about' },      
       
       ],

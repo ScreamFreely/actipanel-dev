@@ -1,5 +1,6 @@
 <template>
   <div class="event_main">
+  <center><h3>Calendar of Events</h3></center>
   <el-row v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center">
      <el-col :span="20" class="events">
   	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
