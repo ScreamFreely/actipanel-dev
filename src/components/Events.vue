@@ -1,7 +1,35 @@
 <template>
   <div class="event_main">
-  <center><h3>Calendar of Events</h3></center>
-  <el-row v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center">
+  <center><h3>Calendar of Events</h3>
+  	<a href='#' v-on:click='addEvent = !addEvent'>Add Event</a>
+  </center>
+  
+  <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
+  	  <el-col :span="22" :offset="1" justify="center">
+  	  <form>
+		    <el-date-picker
+		          v-model="newEvent.date"
+			  type="datetime"
+			  placeholder="Select date and time">
+		    </el-date-picker>
+		<el-input placeholder="Name" v-model="newEvent.name"></el-input>
+		<el-input placeholder="Location" v-model="newEvent.loc"></el-input>
+		<el-input placeholder="City" v-model="newEvent.city"></el-input>
+		<el-input placeholder="www.example.com" v-model="newEvent.link">
+		    <template slot="prepend">http://</template>
+	        </el-input>
+		<el-input
+		  type="textarea"
+		    autosize
+		      placeholder="Event Description"
+		        v-model="newEvent.desc">
+		</el-input>
+
+		<el-button v-on:click="sendEvent(newEvent)">Submit</el-button>
+	  </form>
+	  </el-col>
+</el-row>
+  <el-row v-if="addEvent == false" v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center"> 
      <el-col :span="20" class="events">
   	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
         <el-col :span="12">	
@@ -27,12 +55,13 @@
         </el-col>	  
      </el-row>
      </el-col>
-  </el-row>
+
 
   <el-row :gutter="24" v-if="next !== null" type="flex" class="row-bg" justify="center">
   {{this.events.length}}<h1><a v-on:click="getMore(next)"x><i class="el-icon-arrow-down"></i></a></h1>{{count}}
   </el-row>
-
+</el-row>
+  
 </div>
 </template>
 
@@ -42,6 +71,8 @@ export default {
   data () {
     return {
       msg: 'Events',
+      addEvent: true,
+      newEvent: {},
       next: '',
       count: '',      
       events: [],
@@ -55,7 +86,16 @@ export default {
 	this.events = this.events.concat(response.data.results);
 	this.next = response.data.next.replace('http', 'https');	
       });
-    }
+    },
+
+   sendEvent: function(data){
+   	console.log(data);
+      this.$http.post('https://api.mnactivist.org/api/add-event', data)
+      .then(function(response){
+        console.log(response);
+//	this.events = this.events.concat(response.data.results);
+      });
+    }    
   },
   created: function(){
       console.log('created ran');
