@@ -39,7 +39,7 @@ Vue.http.interceptors.push({
     return res;
   }
 });
-Vue.http.headers.common['Access-Control-Allow-Origin'] = 'https://mnactivist.org'
+Vue.http.headers.common['Access-Control-Allow-Origin'] = false
 
 Vue.config.productionTip = false
 
