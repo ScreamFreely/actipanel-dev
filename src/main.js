@@ -39,6 +39,7 @@ Vue.http.interceptors.push({
     return res;
   }
 });
+
 Vue.http.headers.common['Access-Control-Allow-Origin'] = 'true'
 Vue.http.headers.common['Content-Type'] = 'application/json'
 
