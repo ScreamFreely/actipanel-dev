@@ -1,0 +1,148 @@
+<template>
+  <div class="event_main">
+  <center><h3>Calendar of Events</h3>
+
+<a href='#' v-on:click='addEvent = !addEvent'>Add Event</a>
+  </center>
+  
+  <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
+  	  <el-col :span="22" :offset="1" justify="center">
+  	  <form>
+		    <el-date-picker
+		          v-model="newEvent.date"
+			  type="datetime"
+			  placeholder="Select date and time">
+		    </el-date-picker>
+		<el-input placeholder="Name" v-model="newEvent.name"></el-input>
+		<el-input placeholder="Location" v-model="newEvent.loc"></el-input>
+		<el-input placeholder="City" v-model="newEvent.city"></el-input>
+		<el-input placeholder="www.example.com" v-model="newEvent.link">
+		    <template slot="prepend">http://</template>
+	        </el-input>
+		<el-input
+		  type="textarea"
+		    autosize
+		      placeholder="Event Description"
+		        v-model="newEvent.desc">
+		</el-input>
+
+		<el-button v-on:click="sendEvent(newEvent)">Submit</el-button>
+	  </form>
+	  </el-col>
+</el-row>
+
+
+<el-row v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center"> 
+     <el-col :span="20" class="events">
+  	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
+        <el-col :span="12">	
+          <h2>{{e.name}}</h2>
+        </el-col>
+        <el-col :span="6" class="time">
+	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
+	  <br />
+	  <b class="push-day">{{e.start_date | moment("dddd")}}</b>
+	  <br />
+	  <b>{{ e.location.name }}</b>
+	  <br />
+          <b>{{ e.jurisdiction.name }}</b>
+        </el-col>	  
+     </el-row>
+     <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
+          <h2>{{e.name}}</h2>
+        </el-row>
+     <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">		<el-col :span="18" class="">
+	  <b>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</b>
+	  <br />
+	  <b>{{ e.location.name }} {{ e.jurisdiction.name }}</b>
+        </el-col>	  
+     </el-row>
+     </el-col>
+
+
+  <el-row :gutter="24" v-if="next !== null" type="flex" class="row-bg" justify="center">
+  {{this.events.length}}<h1><a v-on:click="getMore(next)"x><i class="el-icon-arrow-down"></i></a></h1>{{count}}
+  </el-row>
+</el-row>
+  
+</div>
+</template>
+
+<script>
+export default {
+  name: 'Events',
+  data () {
+    return {
+      msg: 'Events',
+      addEvent: false,
+      newEvent: {},
+      next: '',
+      count: '',      
+      events: [],
+    }
+  },
+  methods: {
+  getMore: function(next){
+      this.$http.get(next)
+      .then(function(response){
+        console.log(response);
+	this.events = this.events.concat(response.data.results);
+	this.next = response.data.next.replace('http', 'https');	
+      });
+    }
+  },
+
+  created: function(){
+      console.log('created ran');
+      this.$http.get('https://api.mnactivist.org/api/events')
+//      this.$http.get('http://localhost:8000/api/events')
+      .then(function(response){
+        console.log(response.data.results);
+	this.events = response.data.results;
+	this.next = response.data.next.replace('http', 'https');		
+	this.count = response.data.count;		
+      });
+  },
+  
+  sendEvent: function(data){
+      console.log(data);
+      this.$http.post('https://api.mnactivist.org/api/events', data)
+      .then(function(response){
+        console.log(response);
+      });
+    },
+  
+}
+</script>
+
+
+<style scoped>
+h1, h2 {
+  font-weight: normal;
+  color: #42b983;	
+}
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+li {
+  display: inline-block;
+  margin: 0 10px;
+}
+a {
+  color: #42b983;
+}
+.time {
+  padding: 20px 5px 5px 5px;
+  text-align: right;
+}
+.push-day {
+  padding: 3px 0px 0px 15px;
+}
+.events {
+  border: 2px #000 solid;
+  border-radius: 25px;
+  padding: 0px 5px 25px 5px;
+  margin: 15px;
+}
+</style>
