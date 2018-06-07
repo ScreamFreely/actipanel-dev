@@ -83,6 +83,9 @@
   	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
         <el-col :span="12">	
           <h2>{{e.name}}</h2>
+
+	  <a href="https://calendar.google.com/calendar/r/eventedit?text=New+MnActivist+Event&dates=20180612T190000/20180612T190000&ctz=America/Chicago&details=You+can+add+a+link:+https://mnactivist.org">gCal</a>
+	  
         </el-col>
         <el-col :span="6" class="time">
 	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
@@ -107,7 +110,7 @@
   </el-row>
 
   <el-row :gutter="24" v-if="next !== null" type="flex" class="row-bg" justify="center">
-  {{this.events.length}}<h1><a v-on:click="getMore(next)"x><i class="el-icon-arrow-down"></i></a></h1>{{count}}
+  {{this.events.length}}<h1><a href="#" v-on:click="getMore(next)" aria-label="Load more events"><i class="el-icon-arrow-down"></i></a></h1>{{count}}
   </el-row>
 </div>
 </div>
@@ -205,7 +208,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
-  color: #42b983;	
+  color: #2F835D;	
 }
 ul {
   list-style-type: none;
@@ -216,7 +219,8 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #2F835D;	
+
 }
 .time {
   padding: 20px 5px 5px 5px;

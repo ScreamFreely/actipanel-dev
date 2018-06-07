@@ -94,9 +94,10 @@ export default {
 }
 h1, h2 {
   font-weight: normal;
-  color: #000000;	
+  color: #2F835D;	    
+#  color: #000000;	
 }
 a {
-  color: #42b983;
+  color: #2F835D;	  
 }
 </style>
