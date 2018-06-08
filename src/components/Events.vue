@@ -2,7 +2,7 @@
   <div class="event_main">
   <center><h3>Calendar of Events</h3>
 
-<a href='#' v-on:click='addEvent = !addEvent'>Add Event</a>
+
   </center>
   <br/>
   <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
@@ -72,19 +72,29 @@
 
 
 	<el-button type='primary' @click="sendEvent(newEvent)">Submit</el-button>
+	<el-button @click="addEvent = !addEvent" icon="el-icon-close"/>
 	
 	</el-form>
 	</el-col>
 </el-row>
 
-<div v-if="addEvent == false"> 
+<div v-if="addEvent == false">
+<center><span>
+<el-select v-model="calendar">
+  <el-option v-for="cal in callist" :key="cal.name" :label="cal.name" :value="cal.name"></el-option>
+</el-select>
+<el-button v-on:click="getCal(calendar)" icon="el-icon-refresh"/>
+<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus"/>
+</span></center>
+
+
 <el-row v-if="addEvent == false" v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center"> 
      <el-col :span="20" class="events">
   	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
         <el-col :span="12">	
           <h2>{{e.name}}</h2>
 
-	  <a href="https://calendar.google.com/calendar/r/eventedit?text=New+MnActivist+Event&dates=20180612T190000/20180612T190000&ctz=America/Chicago&details=You+can+add+a+link:+https://mnactivist.org">gCal</a>
+	  <a v-if="cals" href="https://calendar.google.com/calendar/r/eventedit?text=New+MnActivist+Event&dates=20180612T190000/20180612T190000&ctz=America/Chicago&details=You+can+add+a+link:+https://mnactivist.org">gCal</a>
 	  
         </el-col>
         <el-col :span="6" class="time">
@@ -125,6 +135,9 @@ export default {
     return {
       msg: 'Events',
       addEvent: false,
+      cals: false,
+      callist: [],
+      calendar:'',
       newEvent: {},
       next: '',
       count: '',      
@@ -162,13 +175,9 @@ export default {
     },
 
   sendEvent: function(data){
-//      console.log('sending:', data, this.harold);
       if (this.harold == data.numnum) {
-      axios.post('https://api.mnactivist.org/api/add-event/', data,
-//      { headers: {'Access-Control-Allow-Origin': 'true'}}
-      )
+      axios.post('https://api.mnactivist.org/api/add-event/', data,)
       .then(response => {
-//        console.log(response);
 	this.newEvent = {};
 	this.addEvent = false;
         this.$message({
@@ -193,14 +202,28 @@ export default {
 	  });
       }
     },
+    
+   getCal: function(cal){
+       if (cal == 'All Events'){
+	var link = 'https://api.mnactivist.org/api/events';
+       } else {
+        cal = cal.replace(' ', '-');
+	console.log("this is cal: ", cal);
+        var link = 'https://api.mnactivist.org/api/pics/' + cal;
+       }
+      axios.get(link)
+      .then(response => (this.events = response.data.results))      
+    },
   },
+  
   created: function(){
       console.log('created ran', this.events);
       this.harold = this.num1 + this.num2;
       axios.get('https://api.mnactivist.org/api/events')
-//      this.$http.get('http://localhost:8000/api/events')
-	.then(response => (this.events = response.data.results))
-  }
+      .then(response => (this.events = response.data.results));
+      axios.get('https://api.mnactivist.org/api/jurisdictions')
+      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'All Events'})));
+  },
 }
 </script>
 
