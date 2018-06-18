@@ -5,6 +5,7 @@
 
   </center>
   <br/>
+  
   <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
   	  <el-col :span="22" :offset="1" justify="center">
   	  <el-form ref="newEvent" :model="newEvent" label-width="20px">
@@ -13,13 +14,27 @@
 		<el-input placeholder="Event Name" v-model="newEvent.name"></el-input>
 	  </el-form-item>
 
-	  <el-form-item label=" " required>
+
+
+<el-form-item label=" " required>
 	       <el-date-picker
-		          v-model="newEvent.startdate"
-			  type="datetime"
-			  placeholder="Event date and time">
+		          v-model="newEvent.date"
+			  type="date"
+			  placeholder="Pick a day">
 	        </el-date-picker>
 	</el-form-item>
+
+  <el-form-item label=" " required>
+    <el-time-select
+  v-model="newEvent.time"
+  :picker-options="{
+    start: '06:30',
+    step: '00:15',
+    end: '23:30'
+  }"
+  placeholder="Select time">
+</el-time-select>
+</el-form-item>
 	
 	<el-form-item label=" " required>
 	  <el-select v-model="newEvent.event_type" placeholder="Event Type">
@@ -175,6 +190,7 @@ export default {
     },
 
   sendEvent: function(data){
+      data.startdate = data.date + 'T' + data.time
       if (this.harold == data.numnum) {
       axios.post('https://api.mnactivist.org/api/add-event/', data,)
       .then(response => {
