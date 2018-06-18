@@ -21,11 +21,31 @@
 	      Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features (individual accounts) as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community. <br/>
 	      <el-col>
 		<template slot="title"><h4>Donation Levels</h4></template>
+
+
 		<div style="padding:20px 25px 0px 0px;">  
-		  <el-col class="tn" :xs="8" :sm="8" :md="6" :lg="4" :xl="4" :offset="1" v-for="n in numbers">
-		    <el-button  @click.prevent="purchaseStuff(n)" type="primary">${{n}} / month</el-button>
-		  </el-col>
+		<span>
+			<el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
+
+				<el-form-item label=" " required>
+					<el-select v-model="amount" placeholder="Monthly Support">
+						<el-option
+						v-for="n in numbers"
+						:key="n"
+						:label="n"
+						:value="n">
+						</el-option>
+					</el-select>
+				</el-form-item>
+
+			<el-button  @click.prevent="purchaseStuff(amount)" type="primary">${{amount}} / month</el-button>
+
+			</el-form>
+			</span>
 		</div>
+
+			<iframe class="airtable-embed" src="https://airtable.com/embed/shr5KmvdL1Bndz1bj?backgroundColor=green&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+
 	      </el-col>
 
 	    </el-col>
@@ -50,7 +70,46 @@
 	  <el-collapse-item>			  
 	    <template slot="title"><h2>Contact Us</h2></template>
 	    <p><b>MnActivist</b> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
-	    <p>If you would like to contact us, please email us at <a href="mailto:info@screamfreely.org">info@screamfreely.org</a>.</p>
+	    <p>If you would like to contact us, please email us at <a href="mailto:info@screamfreely.org">info@screamfreely.org</a>, or send us a comment directly below.</p>
+
+		<div>
+
+		 <el-form ref="newComment" :model="newComment" label-width="20px">
+		  
+		  <el-form-item label=" " required>
+		    <el-select v-model="newComment.comment_type" placeholder="Comment Type">
+		        <el-option
+		        v-for="item in options"
+		        :key="item.value"
+		        :label="item.label"
+		        :value="item.value">
+		        </el-option>
+		    </el-select>
+		  </el-form-item>
+		  
+		  <el-form-item label=" " required>
+		    <el-input placeholder="Email Address" v-model="newComment.email"></el-input>
+		  </el-form-item>
+		  
+		  <el-form-item label=" " required>
+		    <el-input
+		      type="textarea"
+		        autosize
+		          placeholder="What's up?"
+		            v-model="newComment.description">
+		    </el-input>
+		  </el-form-item>
+		  
+		  <el-form-item label=" ">
+		  <span>
+		  {{ num1 }} + {{ num2 }} = <input placeholder="??" size="5" v-model="newComment.numnum"></input>
+		  </span>
+		  </el-form-item>
+
+		  <el-button type='primary' @click="sendComment(newComment)">Submit</el-button>
+		  
+		  </el-form>
+		</div>
 	  </el-collapse-item>
 
 	</el-collapse>
@@ -76,12 +135,31 @@ export default {
 	    msg: 'Welcome to MnActivist.Org',
 	    posts: [],
 	    isActive: false,
+	    amount: '',
+	    newComment: {},
 	    numbers: ['1', '3', '5', '7', '10', '12', '15', '20', '25', '35', '50', '75', '100', '250', '500', '1000'],
 	    stripe_token: {},
 	    subscription: 0,
 	    //            price: 999,
 	    //            stripe_instance: {},
 	    //            order_status: 'READY'
+	    num1: Math.floor((Math.random() * 50) + 1),
+      	num2: Math.floor((Math.random() * 10) + 1),
+     	harold: 0,
+     	options: [{
+          value: 'sgn',
+          label: 'Suggestion'
+        }, {
+          value: 'dbg',
+          label: 'Tech Issue'
+        }, {
+          value: 'gte',
+          label: 'Thank you'
+        }, {
+          value: 'ctq',
+          label: 'Critique'
+        },
+  ],
 	}
     },
     methods: {
@@ -89,6 +167,7 @@ export default {
             console.log(val);
 	},
 	purchaseStuff: function(number){
+		if (number == ''){return}
 	    this.subscription = number;
             this.stripe_instance.open({
 		name: 'MnActivist',
@@ -109,6 +188,39 @@ export default {
                     this.order_status= "FAILED";
 		});
         },	
+
+        sendComment: function(data){
+      if (this.harold == data.numnum) {
+      axios.post('https://api.mnactivist.org/api/add-comment/', data,)
+      .then(response => {
+      this.num1 = Math.floor((Math.random() * 50) + 1),
+      this.num2 = Math.floor((Math.random() * 10) + 1),
+      this.harold = this.num1 + this.num2;
+  this.newEvent = {};
+  this.addEvent = false;
+        this.$message({
+    message: "Success! We got your comment, thank you.",
+    type: 'success',
+    duration: '5000',
+    });
+  })
+      .catch(error => {
+//        console.log(error);
+        this.$message({
+    message: "Check required fields.",
+    type: 'error',
+    duration: '5000',
+    });
+    })
+      } else {
+        this.$message({
+    message: "Invalid answer.",
+    type: 'error',
+    duration: '5000',
+    });
+      }
+    },
+
     },
 
     mounted: function(){
