@@ -128,6 +128,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Main',
     data () {
@@ -135,6 +136,7 @@ export default {
 	    msg: 'Welcome to MnActivist.Org',
 	    posts: [],
 	    isActive: false,
+	    newDonation: {},
 	    amount: '',
 	    newComment: {},
 	    numbers: ['1', '3', '5', '7', '10', '12', '15', '20', '25', '35', '50', '75', '100', '250', '500', '1000'],
@@ -145,7 +147,7 @@ export default {
 	    //            order_status: 'READY'
 	    num1: Math.floor((Math.random() * 50) + 1),
       	num2: Math.floor((Math.random() * 10) + 1),
-     	harold: 0,
+     	harold: '0',
      	options: [{
           value: 'sgn',
           label: 'Suggestion'
@@ -190,37 +192,38 @@ export default {
         },	
 
         sendComment: function(data){
-	console.log(data);
-      if (this.harold == data.numnum) {
-      axios.post('https://api.mnactivist.org/api/add-comment/', data,)
-      .then(response => {
-      this.num1 = Math.floor((Math.random() * 50) + 1),
-      this.num2 = Math.floor((Math.random() * 10) + 1),
-      this.harold = this.num1 + this.num2;
-  this.newEvent = {};
-  this.addEvent = false;
-        this.$message({
-    message: "Success! We got your comment, thank you.",
-    type: 'success',
-    duration: '5000',
-    });
-  })
-      .catch(error => {
-//        console.log(error);
-        this.$message({
-    message: "Check required fields.",
-    type: 'error',
-    duration: '5000',
-    });
-    })
-      } else {
-        this.$message({
-    message: "Invalid answer.",
-    type: 'error',
-    duration: '5000',
-    });
-      }
-    },
+			console.log(data.numnum, this.harold);
+			if (this.harold == data.numnum) {
+				axios.post('https://api.mnactivist.org/api/add-comment/', data,)
+				.then(response => {
+					this.num1 = Math.floor((Math.random() * 50) + 1),
+					this.num2 = Math.floor((Math.random() * 10) + 1),
+					this.harold = this.num1 + this.num2;
+					this.newEvent = {};
+					this.addEvent = false;
+					this.$message({
+						message: "Success! We got your comment, thank you.",
+						type: 'success',
+						duration: '5000',
+					});
+				})
+      			.catch(error => {
+        		console.log(error);
+        		this.$message({
+				    message: "Check required fields.",
+				    type: 'error',
+				    duration: '5000',
+				});
+    		})
+	      } else {
+
+	        this.$message({
+			    message: "Invalid answer.",
+			    type: 'error',
+			    duration: '5000',
+			    });
+	      	}
+    	},
 
     },
 
@@ -240,6 +243,7 @@ export default {
     },
 
     created: function(){
+    this.harold = this.num1 + this.num2;
 	console.log('created ran');
 	//      this.$http.get('http://localhost:8000/api/orgs')
 	//      .then(function(response){
