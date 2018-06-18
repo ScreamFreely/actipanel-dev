@@ -190,6 +190,7 @@ export default {
         },	
 
         sendComment: function(data){
+	console.log(data);
       if (this.harold == data.numnum) {
       axios.post('https://api.mnactivist.org/api/add-comment/', data,)
       .then(response => {
