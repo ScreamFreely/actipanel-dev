@@ -20,6 +20,8 @@
 	       <el-date-picker
 		          v-model="newEvent.date"
 			  type="date"
+        format="yyyy-MM-dd"
+        value-format="yyyy-MM-dd"
 			  placeholder="Pick a day">
 	        </el-date-picker>
 	</el-form-item>
@@ -32,6 +34,8 @@
     step: '00:15',
     end: '23:30'
   }"
+  value-format="HH:mm:ss"
+  format="HH:mm:ss"
   placeholder="Select time">
 </el-time-select>
 </el-form-item>
@@ -188,9 +192,10 @@ export default {
 	this.next = response.data.next.replace('http', 'https');	
       });
     },
-
+ 
   sendEvent: function(data){
-      data.startdate = data.date + 'T' + data.time
+      data.startdate = data.date + 'T' + data.time +':00+00:00';
+      console.log(data);
       if (this.harold == data.numnum) {
       axios.post('https://api.mnactivist.org/api/add-event/', data,)
       .then(response => {

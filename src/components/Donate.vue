@@ -12,10 +12,10 @@
 
 	</p>
 
-  	  <el-form ref="newEvent" :model="newEvent" label-width="20px">
+  	<el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
 	
 	<el-form-item label=" " required>
-	  <el-select v-model="amount" placeholder="Event Type">
+	  <el-select v-model="amount" placeholder="Monthly Support">
 	      <el-option
 	      v-for="n in numbers"
 	      :key="n"
@@ -28,6 +28,8 @@
 	<el-button  @click.prevent="purchaseStuff(amount)" type="primary">${{amount}} / month</el-button>
 	
 	</el-form>
+
+	<iframe class="airtable-embed" src="https://airtable.com/embed/shr5KmvdL1Bndz1bj?backgroundColor=green&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 	<p><b>MnActivist</b> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
 	<p>If you would like to contact us, please email us at <a href="mailto:info@screamfreely.org">info@screamfreely.org</a>.</p>
@@ -53,7 +55,7 @@ export default {
 	    msg: 'Supporting MnActivist',
 	    posts: [],
 	    isActive: false,
-	    amount: '0',
+	    amount: '',
 	    numbers: ['1', '3', '5', '7', '10', '12', '15', '20', '25', '35', '50', '75', '100', '250', '500', '1000'],
 	    stripe_token: {},
 	    subscription: 0,
@@ -67,6 +69,7 @@ export default {
             console.log(val);
 	},
 	purchaseStuff: function(number){
+		if (number == ''){return}
 	    this.subscription = number;
             this.stripe_instance.open({
 		name: 'MnActivist',
