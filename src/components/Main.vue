@@ -18,7 +18,7 @@
 	  <el-collapse-item>			  
 	    <template slot="title"><h2>Support</h2></template>
 	    <el-col :span="24" class="row-bg">
-	      Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features (individual accounts) as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community. <br/>
+	      Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community. <br/>
 	      <el-col>
 		<template slot="title"><h4>Donation Levels</h4></template>
 
@@ -27,7 +27,7 @@
 		<span>
 			<el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
 
-				<el-form-item label=" " required>
+				<el-form-item label=" ">
 					<el-select v-model="amount" placeholder="Monthly Support">
 						<el-option
 						v-for="n in numbers"
@@ -43,7 +43,7 @@
 			</el-form>
 			</span>
 		</div>
-
+<br/><br/>
 			<iframe class="airtable-embed" src="https://airtable.com/embed/shr5KmvdL1Bndz1bj?backgroundColor=green&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 	      </el-col>
@@ -76,7 +76,7 @@
 
 		 <el-form ref="newComment" :model="newComment" label-width="20px">
 		  
-		  <el-form-item label=" " required>
+		  <el-form-item label=" ">
 		    <el-select v-model="newComment.comment_type" placeholder="Comment Type">
 		        <el-option
 		        v-for="item in options"
@@ -87,11 +87,11 @@
 		    </el-select>
 		  </el-form-item>
 		  
-		  <el-form-item label=" " required>
+		  <el-form-item label=" ">
 		    <el-input placeholder="Email Address" v-model="newComment.email"></el-input>
 		  </el-form-item>
 		  
-		  <el-form-item label=" " required>
+		  <el-form-item label=" ">
 		    <el-input
 		      type="textarea"
 		        autosize
@@ -199,8 +199,7 @@ export default {
 					this.num1 = Math.floor((Math.random() * 50) + 1),
 					this.num2 = Math.floor((Math.random() * 10) + 1),
 					this.harold = this.num1 + this.num2;
-					this.newEvent = {};
-					this.addEvent = false;
+					this.newComment = {};
 					this.$message({
 						message: "Success! We got your comment, thank you.",
 						type: 'success',

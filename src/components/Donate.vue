@@ -6,11 +6,11 @@
       <center>
        <h1>{{ msg }}</h1>
 
-	<p>Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features individual accounts when they are made available.</p>
+	<p>Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features when they are made available.</p>
 
-	<p>This is also the only piece of user data we will retain, the email associated with your contribution. You will receive one email to confirm you subscription, and one other to let you konw when individual accounts are available.</p>
+	<p>The email address associated with your contribution is the only piece of data we will retain. While we use <a href="//stripe.com" target="_blank">Stripe</a> to process to your contribution. You will receive one email to confirm you subscription, and one other to let you know when individual accounts are available.</p>
 
-	</p>
+	<p>Thank you,</p>
 
   	<el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
 	
@@ -28,7 +28,7 @@
 	<el-button  @click.prevent="purchaseStuff(amount)" type="primary">${{amount}} / month</el-button>
 	
 	</el-form>
-
+	<br/>
 	<iframe class="airtable-embed" src="https://airtable.com/embed/shr5KmvdL1Bndz1bj?backgroundColor=green&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
 
 	<p><b>MnActivist</b> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
