@@ -8,7 +8,7 @@
 
     <el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
 	
-	<el-form-item label=" " required>
+	<el-form-item label=" ">
 	  <el-select v-model="amount" placeholder="Monthly Support">
 	      <el-option
 	      v-for="n in numbers"
