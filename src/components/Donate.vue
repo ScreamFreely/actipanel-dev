@@ -2,14 +2,26 @@
   <div class="org_main">
 
     <el-row :gutter="24" type="flex" class="row-bg" justify="center">
-      <el-col :span="20" :offset="2">
+      <el-col :span="24" :offset="0">
       <center>
        <h1>{{ msg }}</h1>
 
     <el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
 	
 	<el-form-item label=" ">
-	  <el-select v-model="amount" placeholder="Monthly Support">
+	  <el-input type="number" v-model="oamount" placeholder="One-time Donation">
+	  </el-input>
+	</el-form-item>
+
+	<el-button  @click.prevent="purchaseStuff(oamount, sub='0')" type="primary">${{oamount}} One-time</el-button>
+	
+	</el-form>
+	<br/>
+
+    <el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
+	
+	<el-form-item label=" ">
+	  <el-select v-model="samount" placeholder="Monthly Support">
 	      <el-option
 	      v-for="n in numbers"
 	      :key="n"
@@ -19,7 +31,7 @@
 	  </el-select>
 	</el-form-item>
 
-	<el-button  @click.prevent="purchaseStuff(amount)" type="primary">${{amount}} / month</el-button>
+	<el-button  @click.prevent="purchaseStuff(samount, sub='1')" type="primary">${{samount}} / month</el-button>
 	
 	</el-form>
 	<br/>
@@ -60,6 +72,9 @@ export default {
 	    posts: [],
 	    isActive: false,
 	    amount: '',
+	    oamount: '',
+	    samount: '',
+	    subscription: '',
 	    numbers: ['1', '3', '5', '7', '10', '12', '15', '20', '25', '35', '50', '75', '100', '250', '500', '1000'],
 	    stripe_token: {},
 	    subscription: 0,
@@ -69,36 +84,62 @@ export default {
 	}
     },
     methods: {
-	handleChange(val) {
-            console.log(val);
-	},
-	purchaseStuff: function(number){
-		if (number == ''){return}
-	    this.subscription = number;
-            this.stripe_instance.open({
-		name: 'MnActivist',
-		description: 'Monthly Subscription',
-		amount: number * 100,
-            })
-            console.log('attempting to get a token');
-        },
-        sendData2Server: function(){
-            this.order_status= "PENDING";
-            this.$http.post('/process_payment', {token_id: this.stripe_token.id, price: this.subscription, email: this.stripe_token.email })
-		.then((response) => {
-                    console.log(response.body);
-                    this.order_status= "SUCCESSFULLY COMPLETED";
-		},(response) => {
-                    // error callback
-                    console.log(response.body);
-                    this.order_status= "FAILED";
-		});
-        },	
+		handleChange(val) {
+	            console.log(val);
+		},
+		purchaseStuff: function(number, sub){
+			if (number == ''){return}
+			this.amount = number;
+			if (sub == '1') {
+				this.subscription = sub;
+	        	this.stripe_instance.open({
+					name: 'MnActivist',
+					description: 'Monthly Subscription',
+					amount: number * 100,
+		    	})
+		    console.log('attempting to get a token');
+			} else {
+				this.amount = number * 100;
+				this.subscription = 0;
+	        	this.stripe_instance.open({
+					name: 'MnActivist',
+					description: 'One-time donation',
+					amount: number * 100,
+		    	})
+		    console.log('attempting to get a token');
+			}
+		},
+
+	    sendData2Server: function(){
+	        this.order_status= "PENDING";
+	        if (this.subscription == '1') {
+		        this.$http.post('/process_payment', {token_id: this.stripe_token.id, price: this.amount, email: this.stripe_token.email})
+				.then((response) => {
+		                console.log(response.body);
+		                this.order_status= "SUCCESSFULLY COMPLETED";
+				},(response) => {
+		                // error callback
+		                console.log(response.body);
+		                this.order_status= "FAILED";
+				});
+
+	        } else {
+		        this.$http.post('/process_contrib', {token_id: this.stripe_token.id, price: this.amount, email: this.stripe_token.email})
+				.then((response) => {
+		                console.log(response.body);
+		                this.order_status= "SUCCESSFULLY COMPLETED";
+				},(response) => {
+		                // error callback
+		                console.log(response.body);
+		                this.order_status= "FAILED";
+				});
+	        }
+    	},	
     },
 
     mounted: function(){
     	let self = this;
-	console.log(self);
+		console.log(self);
         this.stripe_instance = StripeCheckout.configure({
             key: 'pk_live_bmTPtIT5SziXC2f12at3TFPs',    //put your own publishable key here
             image: 'https://stripe.com/img/documentation/checkout/marketplace.png',

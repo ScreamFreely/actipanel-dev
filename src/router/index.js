@@ -18,6 +18,7 @@ import Bill from '@/components/Bill'
 
 import Pics from '@/components/Pics'
 import Donate from '@/components/Donate'
+import Apple from '@/components/Apple'
 
 Vue.use(Router)
 
@@ -50,6 +51,23 @@ export default new Router({
 				header: Welcome,
 				main: Main
 			    }
+			},
+			{
+				path: '/donate',
+				name: 'Donate',
+				components: {
+				header: Welcome,
+				main: Donate
+				}
+			},
+
+			{
+				path: '/apple',
+				name: 'Apple',
+				components: {
+				header: Welcome,
+				main:  Apple
+				}
 			},
 		]
 	    },
@@ -152,11 +170,6 @@ export default new Router({
 			    }
 			},
 		]
-	    },
-	    {
-	    path: '/donate',
-	    name: 'Donate',
-		component: Donate,
 	    },
 
     ]
