@@ -61,6 +61,7 @@ export default {
 
     sendApple: function(data){
 			if (this.harold == data.numnum) {
+				data.state = 'mn';
 				axios.post('https://api.mnactivist.org/api/add-apple/', data,)
 				.then(response => {
 					this.num1 = Math.floor((Math.random() * 50) + 1),

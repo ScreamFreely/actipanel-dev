@@ -227,6 +227,8 @@ export default {
    getCal: function(cal){
        if (cal == 'All Events'){
 	var link = 'https://api.mnactivist.org/api/events';
+       } else if (cal == 'Music'){
+  var link = 'https://api.mnactivist.org/api/pics/music';
        } else {
         cal = cal.replace(' ', '-');
 	console.log("this is cal: ", cal);
@@ -243,7 +245,7 @@ export default {
       axios.get('https://api.mnactivist.org/api/events')
       .then(response => (this.events = response.data.results));
       axios.get('https://api.mnactivist.org/api/jurisdictions')
-      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'All Events'})));
+      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'All Events'}, {'id': 'null', 'name': 'Music'})));
   },
 }
 </script>
