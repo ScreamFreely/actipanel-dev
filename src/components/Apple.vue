@@ -43,6 +43,7 @@
 
 
 <script>
+import axios from 'axios';
 export default {
     name: 'Main',
     data () {
@@ -69,7 +70,7 @@ export default {
 					this.harold = this.num1 + this.num2;
 					this.newApple = {};
 					this.$message({
-						message: "Success! We got your comment, thank you.",
+						message: "Success! We got ya deets, thank you!",
 						type: 'success',
 						duration: '5000',
 					});
