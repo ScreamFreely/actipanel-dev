@@ -19,6 +19,7 @@ import Bill from '@/components/Bill'
 import Pics from '@/components/Pics'
 import Donate from '@/components/Donate'
 import Apple from '@/components/Apple'
+import Quote from '@/components/Quotes'
 
 Vue.use(Router)
 
@@ -67,6 +68,14 @@ export default new Router({
 				components: {
 				header: Welcome,
 				main:  Apple
+				}
+			},
+			{
+				path: '/quote',
+				name: 'Quote',
+				components: {
+				header: Welcome,
+				main:  Quote
 				}
 			},
 		]

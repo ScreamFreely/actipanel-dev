@@ -27,7 +27,7 @@
      </el-row>
      
      <el-row class="auxRow">
-     <el-col :push="15">
+     <el-col :push="3">
          <el-col v-for="l in basics" :span="4" :offset="1">
 	  	<small><router-link :to="l.link">{{l.name}}</router-link></small>
           </el-col>
@@ -52,9 +52,9 @@ export default {
       { name: 'Organizations', link: '/organizations' },      
       ],
       basics:[
-//      { name: 'Membership', link: '/support' },
-//      { name: 'Mailing list', link: '/member' },
-//      { name: 'Resources', link: '/resources' },
+      { name: 'iOS', link: '/apple' },
+      { name: 'Android', link: 'http://bit.ly/MnActivist_for_Android' },
+      { name: 'Add-a-Quote', link: '/quote' },
       { name: 'About', link: '/about' },      
       
       ],
