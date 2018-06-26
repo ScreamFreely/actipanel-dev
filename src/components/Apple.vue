@@ -6,7 +6,13 @@
       <center>
        <h1>{{ msg }}</h1>
 
-       <p>Apple has a somewhat laborious process in order to make applications available to their customers. MnActivist is in the testing stage, and in order to access the app, you'll need to download Apple's <a href="https://itunes.apple.com/us/app/testflight/id899247664?mt=8" target="_blank">Test Flight</a> app. Through this we can send you an invitation to test the app, using the following information.</p>
+       <p>Apple has a somewhat laborious process in order to make applications available to their customers. 
+
+       <p>MnActivist is in the testing stage, and in order to access the app, you'll need to download Apple's <a href="https://itunes.apple.com/us/app/testflight/id899247664?mt=8" target="_blank">Test Flight</a> app.</p>
+
+       <p>After submitting your information here, you'll receive an email within 48 hours inviting you to test the application. Within the email, will be a link to Start Testing, which will open up the Test Flight application and allow you to download the app<p>
+
+       <p>Thank you for your support and feedback!</p>
 
  <el-form ref="newApple" :model="newApple" label-width="20px">
 		  <el-form-item label=" ">
