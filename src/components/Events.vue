@@ -245,7 +245,7 @@ export default {
       axios.get('https://api.mnactivist.org/api/events')
       .then(response => (this.events = response.data.results));
       axios.get('https://api.mnactivist.org/api/jurisdictions')
-      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'All Events'}, {'id': 'null', 'name': 'Music'})));
+      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'Arts'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Learning'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )));
   },
 }
 </script>
