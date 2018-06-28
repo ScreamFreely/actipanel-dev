@@ -5,11 +5,11 @@
     </el-row>
 
     <el-row :gutter="24" type="flex" class="row-bg" justify="center">
-      <el-col :span="20" :offset="2">
+      <el-col :span="22" :offset="1">
       <center>
        <h1>{{ msg }}</h1>
 
-	<p>We are an organization with a website, and a <a href="http://bit.ly/MnActivist_for_Android">phone app</a>, aiming to be a one-stop apolitical shop for political information in Minnesota, starting with event listings. Follow our <a href="https://facebook.com/mnactivist">FB</a> and <a href="https://twitter.com/mnactivist">Twitter</a> for daily pictures of upcoming events! We are just starting out; we've got an idea, proof of concept, and we'd love you're support! Either through a follow or a donation to help increase public access to our government.</p>
+	<p>We are an organization with a website, and a <a href="http://bit.ly/MnActivist_for_Android">phone app</a>, aiming to be a one-stop apolitical shop for political information in Minnesota, starting with event listings. Follow our <a href="https://facebook.com/mnactivist">FB</a> and <a href="https://twitter.com/mnactivist">Twitter</a> for daily pictures of upcoming events! We are just starting out; we've got an idea, proof of concept, and we'd love your support! Either through a follow or a donation to help increase public access to our government.</p>
 
 	<p>We are also looking to teach and train new coders to expand and maintain our database. Using an organizational structure anchored by co-directors of differing racial and gender identies, we seek to maintain an open organizational culture that allows individuals space for the their experiences. We feel that this is a sector ripe to provide such opportunities to both grow our communities and our work-force.</p>
 

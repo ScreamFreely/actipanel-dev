@@ -8,23 +8,41 @@
   
   <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
   	  <el-col :span="22" :offset="1" justify="center">
+
+<center>
+ <p>Just have a Facebook Event?</p>
+
+    <el-form ref="newFBEvent" :model="newFBEvent" label-width="20px">
+      <el-form-item label=" " prop="name" required>
+      <el-input placeholder="Facebook Event Link" v-model="newFBEvent.link"></el-input>
+      </el-form-item>
+    </el-form>
+
+    <el-button type='primary' size='mini' @click="sendFBEvent(newFBEvent)">Submit Fb Event</el-button>
+
+</center>
+    <br/><br/>
+
+
   	  <el-form ref="newEvent" :model="newEvent" label-width="20px">
 
-	  <el-form-item label=" " prop="name" required>
-		<el-input placeholder="Event Name" v-model="newEvent.name"></el-input>
-	  </el-form-item>
 
 
 
-<el-form-item label=" " required>
-	       <el-date-picker
-		          v-model="newEvent.date"
-			  type="date"
-        format="yyyy-MM-dd"
-        value-format="yyyy-MM-dd"
-			  placeholder="Pick a day">
-	        </el-date-picker>
-	</el-form-item>
+
+
+	      <el-form-item label=" " prop="name" required>
+    <el-input placeholder="Event Name" v-model="newEvent.name"></el-input>
+    </el-form-item>
+
+    <el-form-item label=" " required>
+         <el-date-picker
+              v-model="newEvent.date"
+              type="date"
+              value-format="yyyy-MM-dd"
+              placeholder="Pick a day">
+          </el-date-picker>
+  </el-form-item>
 
   <el-form-item label=" " required>
     <el-time-select
@@ -35,59 +53,65 @@
     end: '23:30'
   }"
   value-format="HH:mm:ss"
-  format="HH:mm:ss"
   placeholder="Select time">
 </el-time-select>
 </el-form-item>
-	
-	<el-form-item label=" " required>
-	  <el-select v-model="newEvent.event_type" placeholder="Event Type">
-	      <el-option
-	      v-for="item in options"
-	      :key="item.value"
-	      :label="item.label"
-	      :value="item.value">
-	      </el-option>
-	  </el-select>
-	</el-form-item>
-	
-	<el-form-item label=" " required>
-		<el-input placeholder="Location, preferably an address" v-model="newEvent.location"></el-input>
-	</el-form-item>
-	
-	<p>The following two fields will be used to match your event to others in the same city, or being hosted by the same organization(s). Separate mulitple participants with a comma.</p>
-	
-	<el-form-item label=" " required>
-		<el-input placeholder="City" v-model="newEvent.city"></el-input>
-	</el-form-item>
-	
-	<el-form-item label=" ">
-		<el-input placeholder="Participants" v-model="newEvent.participants"></el-input>
-	</el-form-item>
-	
-	<el-form-item label=" " required>
-		<el-input placeholder="if none use 'sf.org'" v-model="newEvent.link">
-		    <template slot="prepend">http://</template>
-	        </el-input>
-	</el-form-item>
-	
-	<el-form-item label=" " required>
-		<el-input
-		  type="textarea"
-		    autosize
-		      placeholder="What's going on?"
-		        v-model="newEvent.description">
-		</el-input>
-	</el-form-item>
-	
-	<el-form-item label=" ">
-		<el-input placeholder="Pass word" v-model="newEvent.password"></el-input>		
-	</el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-select v-model="newEvent.event_type" placeholder="Event Type">
+        <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+        </el-option>
+    </el-select>
+  </el-form-item>
+ 
+  <el-form-item label="">
+    <el-input placeholder="Location Name" v-model="newEvent.loc_name"/>
+  </el-form-item> 
+
+  <el-form-item label=" " required>
+    <el-input placeholder="Address" v-model="newEvent.location"></el-input>
+  </el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-input placeholder="City" v-model="newEvent.city"></el-input>
+  </el-form-item>
+  
+  <el-form-item label=" ">
+    <el-input placeholder="mnactivist.org" v-model="newEvent.link">
+        <template slot="prepend">http://</template>
+          </el-input>
+  </el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-input
+      type="textarea"
+        autosize
+          placeholder="What's going on?"
+            v-model="newEvent.description">
+    </el-input>
+  </el-form-item>
+  
+  <el-form-item label=" ">
+    <el-input placeholder="" v-model="newEvent.password"></el-input>   
+  </el-form-item>
+
 	<el-form-item label=" ">
 	<span>
 	{{ num1 }} + {{ num2 }} = <input placeholder="??" size="5" v-model="newEvent.numnum"></input>
 	</span>
 	</el-form-item>
+
+
+
+
+
+
+
+
 
 
 	<el-button type='primary' @click="sendEvent(newEvent)">Submit</el-button>
@@ -103,7 +127,7 @@
   <el-option v-for="cal in callist" :key="cal.name" :label="cal.name" :value="cal.name"></el-option>
 </el-select>
 <el-button v-on:click="getCal(calendar)" icon="el-icon-refresh"/>
-<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus"/>
+<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus">Event</el-button>
 </span></center>
 
 
@@ -158,6 +182,7 @@ export default {
       callist: [],
       calendar:'',
       newEvent: {},
+      newFBEvent: {},
       next: '',
       count: '',      
       events: [],
@@ -192,28 +217,52 @@ export default {
 	this.next = response.data.next.replace('http', 'https');	
       });
     },
+
+    sendFBEvent: function(data){
+      var sdata = Object.assign( {}, data);
+      if (sdata.link == '') { return };
+      axios.post('https://api.mnactivist.org/api/add-fb-event/', sdata,)
+      .then(response => {
+        this.newFBEvent = {};
+        this.addEvent = false;
+        this.$message({
+          message: "Success! We got your event, thank you.",
+          type: 'success',
+          duration: '5000',
+        });
+      })
+      .catch(error => {
+//      console.log(error);
+        this.$message({
+          message: "Check required fields.",
+          type: 'error',
+          duration: '5000',
+        });
+      })
+    },
  
   sendEvent: function(data){
       data.startdate = data.date + 'T' + data.time +':00+00:00';
-      console.log(data);
+      sdata.location = data.loc_name + ' |0| ' + data.location;
+      if (sdata.link == '') { sdata.link = 'sf.org' };
       if (this.harold == data.numnum) {
       axios.post('https://api.mnactivist.org/api/add-event/', data,)
       .then(response => {
-	this.newEvent = {};
-	this.addEvent = false;
-        this.$message({
-	  message: "Success! We got your event, thank you.",
-	  type: 'success',
-	  duration: '5000',
-	  });
-	})
+    	this.newEvent = {};
+    	this.addEvent = false;
+      this.$message({
+    	  message: "Success! We got your event, thank you.",
+    	  type: 'success',
+    	  duration: '5000',
+    	  });
+    	})
       .catch(error => {
 //        console.log(error);
         this.$message({
-	  message: "Check required fields.",
-	  type: 'error',
-	  duration: '5000',
-	  });
+      	  message: "Check required fields.",
+      	  type: 'error',
+      	  duration: '5000',
+	     });
 	  })
       } else {
         this.$message({
