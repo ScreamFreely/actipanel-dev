@@ -1,72 +1,319 @@
 <template>
   <div class="event_main">
-  <center><h3>Calendar of Events</h3></center>
-  <el-row v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center">
+  <center><h3>Calendar of Events</h3>
+
+
+  </center>
+  <br/>
+  
+  <el-row v-if="addEvent == true" :gutter="24" type="flex" class="row-bg">
+  	  <el-col :span="22" :offset="1" justify="center">
+
+<center>
+ <p>Just have a Facebook Event?</p>
+
+    <el-form ref="newFBEvent" :model="newFBEvent" label-width="20px">
+      <el-form-item label=" " prop="name" required>
+      <el-input placeholder="Facebook Event Link" v-model="newFBEvent.link"></el-input>
+      </el-form-item>
+    </el-form>
+
+    <el-button type='primary' size='mini' @click="sendFBEvent(newFBEvent)">Submit Fb Event</el-button>
+
+</center>
+    <br/><br/>
+
+
+  	  <el-form ref="newEvent" :model="newEvent" label-width="20px">
+
+
+
+
+
+
+	      <el-form-item label=" " prop="name" required>
+    <el-input placeholder="Event Name" v-model="newEvent.name"></el-input>
+    </el-form-item>
+
+    <el-form-item label=" " required>
+         <el-date-picker
+              v-model="newEvent.date"
+              type="date"
+              value-format="yyyy-MM-dd"
+              placeholder="Pick a day">
+          </el-date-picker>
+  </el-form-item>
+
+  <el-form-item label=" " required>
+    <el-time-select
+  v-model="newEvent.time"
+  :picker-options="{
+    start: '06:30',
+    step: '00:15',
+    end: '23:30'
+  }"
+  value-format="HH:mm:ss"
+  placeholder="Select time">
+</el-time-select>
+</el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-select v-model="newEvent.event_type" placeholder="Event Type">
+        <el-option
+        v-for="item in options"
+        :key="item.value"
+        :label="item.label"
+        :value="item.value">
+        </el-option>
+    </el-select>
+  </el-form-item>
+ 
+  <el-form-item label="">
+    <el-input placeholder="Location Name" v-model="newEvent.loc_name"/>
+  </el-form-item> 
+
+  <el-form-item label=" " required>
+    <el-input placeholder="Address" v-model="newEvent.location"></el-input>
+  </el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-input placeholder="City" v-model="newEvent.city"></el-input>
+  </el-form-item>
+  
+  <el-form-item label=" ">
+    <el-input placeholder="mnactivist.org" v-model="newEvent.link">
+        <template slot="prepend">http://</template>
+          </el-input>
+  </el-form-item>
+  
+  <el-form-item label=" " required>
+    <el-input
+      type="textarea"
+        autosize
+          placeholder="What's going on?"
+            v-model="newEvent.description">
+    </el-input>
+  </el-form-item>
+  
+  <el-form-item label=" ">
+    <el-input placeholder="" v-model="newEvent.password"></el-input>   
+  </el-form-item>
+
+	<el-form-item label=" ">
+	<span>
+	{{ num1 }} + {{ num2 }} = <input placeholder="??" size="5" v-model="newEvent.numnum"></input>
+	</span>
+	</el-form-item>
+
+
+
+
+
+
+
+
+
+
+	<el-button type='primary' @click="sendEvent(newEvent)">Submit</el-button>
+	<el-button @click="addEvent = !addEvent" icon="el-icon-close"/>
+	
+	</el-form>
+	</el-col>
+</el-row>
+
+<div v-if="addEvent == false">
+<center><span>
+<el-select v-model="calendar">
+  <el-option v-for="cal in callist" :key="cal.name" :label="cal.name" :value="cal.name"></el-option>
+</el-select>
+<el-button v-on:click="getCal(calendar)" icon="el-icon-refresh"/>
+<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus">Event</el-button>
+</span></center>
+
+
+<el-row v-if="addEvent == false" v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center"> 
      <el-col :span="20" class="events">
   	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
         <el-col :span="12">	
           <h2>{{e.name}}</h2>
+
+	  <a v-if="cals" :href="'sendToGCal(e)'">gCal</a>
+	  
         </el-col>
         <el-col :span="6" class="time">
-	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
+	  <strong>{{e.start_date | moment("MMM D h:mma")}}</strong>
 	  <br />
-	  <b class="push-day">{{e.start_date | moment("dddd")}}</b>
+	  <strong class="push-day">{{e.start_date | moment("dddd")}}</strong>
 	  <br />
-	  <b>{{ e.location.name }}</b>
+	  <strong>{{ e.location.name }}</strong>
 	  <br />
-          <b>{{ e.jurisdiction.name }}</b>
+          <strong>{{ e.jurisdiction.name }}</strong>
         </el-col>	  
      </el-row>
      <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
           <h2>{{e.name}}</h2>
         </el-row>
      <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">		<el-col :span="18" class="">
-	  <b>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</b>
+	  <strong>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</strong>
 	  <br />
-	  <b>{{ e.location.name }} {{ e.jurisdiction.name }}</b>
+	  <strong>{{ e.location.name }} {{ e.jurisdiction.name }}</strong>
         </el-col>	  
      </el-row>
      </el-col>
   </el-row>
 
   <el-row :gutter="24" v-if="next !== null" type="flex" class="row-bg" justify="center">
-  {{this.events.length}}<h1><a v-on:click="getMore(next)"x><i class="el-icon-arrow-down"></i></a></h1>{{count}}
+  {{this.events.length}}<h1><a href="#" v-on:click="getMore(next)" aria-label="Load more events"><i class="el-icon-arrow-down"></i></a></h1>{{count}}
   </el-row>
-
+</div>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'Events',
   data () {
     return {
       msg: 'Events',
+      addEvent: false,
+      cals: false,
+      callist: [],
+      calendar:'',
+      newEvent: {},
+      newFBEvent: {},
       next: '',
       count: '',      
       events: [],
+      options: [{
+          value: 'org',
+          label: 'Organizational'
+        }, {
+          value: 'art',
+          label: 'Arts & Music'
+        }, {
+          value: 'edu',
+          label: 'Educational'
+        }, {
+          value: 'civ',
+          label: 'Civic'
+        }, {
+          value: 'govt',
+          label: 'Governmental'
+        },
+        {
+          value: 'demo',
+          label: 'Demonstration'
+        },
+	],
+      num1: Math.floor((Math.random() * 50) + 1),
+      num2: Math.floor((Math.random() * 10) + 1),
+      harold: 0,
     }
   },
   methods: {
   getMore: function(next){
       this.$http.get(next)
       .then(function(response){
-        console.log(response);
+//        console.log(response);
 	this.events = this.events.concat(response.data.results);
 	this.next = response.data.next.replace('http', 'https');	
       });
-    }
+    },
+    addToGCal: function(event){
+      var time = event.start_date;
+      var link = event.location.name;
+      var city = event.jurisdation.name;
+      var nlink = "https://calendar.google.com/calendar/r/eventedit?text=" + event.name + "&dates=" + event.start_date + "/" + event.start_date + "&ctz=America/Chicago"
+      return nlink
+    },
+    sendFBEvent: function(data){
+      var sdata = Object.assign( {}, data);
+      if (sdata.link == '') { return };
+      axios.post('https://api.mnactivist.org/api/add-fb-event/', sdata,)
+      .then(response => {
+        this.newFBEvent = {};
+        this.addEvent = false;
+        this.$message({
+          message: "Success! We got your event, thank you.",
+          type: 'success',
+          duration: '5000',
+        });
+      })
+      .catch(error => {
+//      console.log(error);
+        this.$message({
+          message: "Check required fields.",
+          type: 'error',
+          duration: '5000',
+        });
+      })
+    },
+ 
+  sendEvent: function(data){
+      data.startdate = data.date + 'T' + data.time +':00+00:00';
+      sdata.location = data.loc_name + ' |0| ' + data.location;
+      if (sdata.link == '') { sdata.link = 'sf.org' };
+      if (this.harold == data.numnum) {
+      axios.post('https://api.mnactivist.org/api/add-event/', data,)
+      .then(response => {
+    	this.newEvent = {};
+    	this.addEvent = false;
+      this.$message({
+    	  message: "Success! We got your event, thank you.",
+    	  type: 'success',
+    	  duration: '5000',
+    	  });
+    	})
+      .catch(error => {
+//        console.log(error);
+        this.$message({
+      	  message: "Check required fields.",
+      	  type: 'error',
+      	  duration: '5000',
+	     });
+	  })
+      } else {
+        this.$message({
+	  message: "Invalid answer.",
+	  type: 'error',
+	  duration: '5000',
+	  });
+      }
+    },
+    
+   getCal: function(cal){
+       if (cal == 'All Events'){
+	var link = 'https://api.mnactivist.org/api/events';
+       } else if (cal == 'Arts & Music'){
+            var link = 'https://api.mnactivist.org/api/pics/art';
+       } else if (cal == 'Civic'){
+            var link = 'https://api.mnactivist.org/api/pics/civ';
+       } else if (cal == 'Educative'){
+            var link = 'https://api.mnactivist.org/api/pics/edu';
+       } else if (cal == 'Org Events'){
+            var link = 'https://api.mnactivist.org/api/pics/org';
+       } else if (cal == 'Demonstrations'){
+            var link = 'https://api.mnactivist.org/api/pics/demo';
+       } else {
+        cal = cal.replace(' ', '-');
+	      console.log("this is cal: ", cal);
+        var link = 'https://api.mnactivist.org/api/pics/' + cal;
+       }
+      axios.get(link)
+      .then(response => (this.events = response.data.results))      
+    },
   },
+  
   created: function(){
-      console.log('created ran');
-      this.$http.get('https://api.mnactivist.org/api/events')
-//      this.$http.get('http://localhost:8000/api/events')
-      .then(function(response){
-	this.events = response.data.results;
-	this.next = response.data.next.replace('http', 'https');		
-	this.count = response.data.count;		
-      });
-  }
+      console.log('created ran', this.events);
+      this.harold = this.num1 + this.num2;
+      axios.get('https://api.mnactivist.org/api/events')
+      .then(response => (this.events = response.data.results));
+      axios.get('https://api.mnactivist.org/api/jurisdictions')
+      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )));
+  },
 }
 </script>
 
@@ -74,7 +321,7 @@ export default {
 <style scoped>
 h1, h2 {
   font-weight: normal;
-  color: #42b983;	
+  color: #2F835D;	
 }
 ul {
   list-style-type: none;
@@ -85,7 +332,8 @@ li {
   margin: 0 10px;
 }
 a {
-  color: #42b983;
+  color: #2F835D;	
+
 }
 .time {
   padding: 20px 5px 5px 5px;

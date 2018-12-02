@@ -10,20 +10,20 @@
           <h2>{{e.name}}</h2>
         </el-col>
         <el-col :span="6" class="time">
-	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
+	  <strong>{{e.start_date | moment("MMM D h:mma")}}</strong>
 	  <br />
-	  <b class="push-day">{{e.start_date | moment("dddd")}}</b>
+	  <strong class="push-day">{{e.start_date | moment("dddd")}}</strong>
 	  <br />
-	  <b>{{ e.location.name }}</b>
+	  <strong>{{ e.location.name }}</strong>
         </el-col>	  
      </el-row>
      <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
           <h2>{{e.name}}</h2>
         </el-row>
      <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">		<el-col :span="18" class="">
-	  <b>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</b>
+	  <strong>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</strong>
 	  <br />
-	  <b>{{ e.location.name }}</b>
+	  <strong>{{ e.location.name }}</strong>
         </el-col>	  
      </el-row>
      </el-col>

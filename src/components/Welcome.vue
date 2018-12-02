@@ -21,13 +21,13 @@
     <el-row>
      <el-col :push="2">
      <el-col v-for="l in links" :span="4" :offset="1" class="mi">
-    	    <b><router-link :to="l.link">{{l.name}}</router-link></b>
+    	    <strong><router-link :to="l.link">{{l.name}}</router-link></strong>
        </el-col>
      </el-col>       
      </el-row>
      
      <el-row class="auxRow">
-     <el-col :push="15">
+     <el-col :push="3">
          <el-col v-for="l in basics" :span="4" :offset="1">
 	  	<small><router-link :to="l.link">{{l.name}}</router-link></small>
           </el-col>
@@ -52,9 +52,9 @@ export default {
       { name: 'Organizations', link: '/organizations' },      
       ],
       basics:[
-//      { name: 'Membership', link: '/support' },
-//      { name: 'Mailing list', link: '/member' },
-//      { name: 'Resources', link: '/resources' },
+      { name: 'iOS', link: '/apple' },
+      { name: 'Android', link: 'http://bit.ly/MnActivist_for_Android' },
+//      { name: 'Add-a-Quote', link: '/quote' },
       { name: 'About', link: '/about' },      
       
       ],
@@ -94,9 +94,10 @@ export default {
 }
 h1, h2 {
   font-weight: normal;
-  color: #000000;	
+  color: #2F835D;	    
+#  color: #000000;	
 }
 a {
-  color: #42b983;
+  color: #2F835D;	  
 }
 </style>
