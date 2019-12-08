@@ -3,13 +3,13 @@
     <el-row :gutter="24" type="flex" class="row-bg" justify="left">
       <el-col :span="8" :offset="1"> <h1>{{ event.name }}</h1></el-col>
           <el-col :span="6" :offset="6" class="time">
-	    <strong>{{event.start_date | moment("MMM D h:mma")}}</strong>
+	    <b>{{event.start_date | moment("MMM D h:mma")}}</b>
 	    <br />
-	    <strong class="push-day">{{event.start_date | moment("dddd")}}</strong>
+	    <b class="push-day">{{event.start_date | moment("dddd")}}</b>
 	    <br />
-	    <strong>{{ event.location.name }}</strong>
+	    <b>{{ event.location.name }}</b>
 	    <br />
-            <strong>{{ event.jurisdiction.name }}</strong>
+            <b>{{ event.jurisdiction.name }}</b>
           </el-col>	  
    </el-row>
 
@@ -26,9 +26,9 @@
 
 	<el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
 	  <el-col :span="18" class="">
-	    <strong>{{event.start_date | moment("dddd")}} {{event.start_date | moment("MMM D h:mma")}}</strong>
+	    <b>{{event.start_date | moment("dddd")}} {{event.start_date | moment("MMM D h:mma")}}</b>
 	    <br />
-	    <strong>{{ event.location.name }} {{ event.jurisdiction.name }}</strong>
+	    <b>{{ event.location.name }} {{ event.jurisdiction.name }}</b>
           </el-col>	  
 	</el-row>
 

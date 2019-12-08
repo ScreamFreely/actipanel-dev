@@ -32,6 +32,9 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'People',
   data () {
@@ -39,33 +42,28 @@ export default {
       msg: 'People',
       next: '',
       count: '',      
-      people: [],
     }
   },
   methods: {
     handleChange(val) {
         console.log(val);
     },
-  getMore: function(next){
-      this.$http.get(next)
-      .then(function(response){
-        console.log(response);
-	this.people = this.people.concat(response.data.results);
-	this.next = response.data.next.replace('http', 'https');		
-      });
+    getMore: function(next){
+      this.$store.dispatch('people/getPeople', next)
+      mapState({events: state => state.events.events })
     },
-    
-  },      
+  },
   created: function(){
       console.log('created ran');
-      this.$http.get('https://api.mnactivist.org/api/people')
-//      this.$http.get('http://localhost:8000/api/people')
-      .then(function(response){
-        this.people = response.data.results;
-	this.next = response.data.next.replace('http', 'https');		
-	this.count = response.data.count;
-      });
+      this.$store.dispatch('people/getPeople')
   },
+
+  computed: mapState({
+    // isAuth: state => state.auth.token,
+    people: state => state.people.people,
+    //next: state => state.people.next,
+    //count: state => state.people.count,
+  }),
 
 }
 </script>

@@ -9,15 +9,15 @@
 	  <p><a :href="o.sources[0].url">Link</a></p>
 
 
-<el-collapse @change="handleChange">
-  <el-collapse-item>
-  	<template slot="title"><h3>Actions</h3></template>
-	  <div v-for="a in o.actions" v-if="a.description !== 'passed_lower' && a.description !== 'passed_upper'">
-	     {{a.description}}
-	     {{a.date | moment("MM/D/YYYY")}}	     
-	  </div>
-  </el-collapse-item>
-</el-collapse>
+    <el-collapse @change="handleChange">
+      <el-collapse-item>
+      	<template slot="title"><h3>Actions</h3></template>
+    	  <div v-for="a in o.actions" v-if="a.description !== 'passed_lower' && a.description !== 'passed_upper'">
+    	     {{a.description}}
+    	     {{a.date | moment("MM/D/YYYY")}}	     
+    	  </div>
+      </el-collapse-item>
+    </el-collapse>
 </el-col>    
 </el-row>    
 
@@ -30,6 +30,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
+
+
 export default {
   name: 'Bills',
   data () {
@@ -38,32 +42,28 @@ export default {
       post_label: 'District',
       next: '',
       count: '',      
-      bills: [],
     }
   },
-  methods: {
-    handleChange(val) {
-        console.log(val);
-    },
-  getMore: function(next){
-      this.$http.get(next)
-      .then(function(response){
-        console.log(response);
-	this.bills = this.bills.concat(response.data.results);
-	this.next = response.data.next.replace('http', 'https');	
-      });
-    },
-  },
+
   created: function(){
       console.log('created ran');
-      this.$http.get('https://api.mnactivist.org/api/bills')
-//      this.$http.get('http://localhost:8000/api/bills')
-      .then(function(response){
-        this.bills = response.data.results;
-	this.next = response.data.next.replace('http', 'https');	
-	this.count = response.data.count;	
-      });
+      this.$store.dispatch('policy/getPolicy')
   },
+
+  computed: mapState({
+    // isAuth: state => state.auth.token,
+    bills: state => state.policy.policies,
+    //next: state => state.policy.next,
+    //count: state => state.policy.count,
+  }),
+
+  methods: {
+    getMore: function(next){
+      this.$store.dispatch('events/getNewPolicies', next)
+      mapState({bills: state => state.policy.policies })
+    },
+  },
+
 }
 </script>
 

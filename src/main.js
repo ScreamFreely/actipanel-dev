@@ -11,13 +11,31 @@ import router from './router'
 import ElementUI from 'element-ui'
 import vueResource from 'vue-resource'
 
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import jwt_decode from 'jwt-decode'
+import Vuex from 'vuex'
+
+// import App from './App'
+import store from './store'
 
 
-import App from './App'
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 
 Vue.use(vueResource)
 Vue.use(ElementUI, { locale })
 Vue.use(require('vue-moment'))
+
+Vue.use(Vuex)
+
+// Vue.use(VueAxios, axios)
+
+const token = localStorage.getItem('user-token')
+if (token) {
+  axios.defaults.headers.common['Authorization'] = token
+}
 
 Vue.http.interceptors.push({
   request: function (req) {
@@ -47,6 +65,7 @@ Vue.config.productionTip = false
 
 /* eslint-disable no-new */
 new Vue({
+  store,
   router,
   template: '<router-view />'
 }).$mount('#app')

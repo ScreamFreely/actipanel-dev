@@ -9,7 +9,7 @@
       <center>
        <h1>{{ msg }}</h1>
 
-	<p>We are an organization with a website, and a <a href="http://bit.ly/MnActivist_for_Android">phone app</a>, aiming to be a one-stop apolitical shop for political information in Minnesota, starting with event listings. Follow our <a href="https://facebook.com/mnactivist">FB</a> and <a href="https://twitter.com/mnactivist">Twitter</a> for daily pictures of upcoming events! We are just starting out; we've got an idea, proof of concept, and we'd love your support! Either through a follow or a donation to help increase public access to our government.</p>
+	<p>We are an organization with a website<span v-if="siteName == 'MnActivist'">, and a <a href="http://bit.ly/MnActivist_for_Android">phone app</a>,</span> aiming to be a one-stop apolitical shop for political information in {{ aState }}, starting with event listings. <span v-if="siteName == 'MnActivist'">Follow our <a href="https://facebook.com/mnactivist">FB</a> and <a href="https://twitter.com/mnactivist">Twitter</a> for daily pictures of upcoming events!</span> We are just starting out; we've got an idea, proof of concept, and we'd love your support! Either through a follow or a donation to help increase public access to our government.</p>
 
 	<p>We are also looking to teach and train new coders to expand and maintain our database. Using an organizational structure anchored by co-directors of differing racial and gender identies, we seek to maintain an open organizational culture that allows individuals space for the their experiences. We feel that this is a sector ripe to provide such opportunities to both grow our communities and our work-force.</p>
 
@@ -18,33 +18,21 @@
 	  <el-collapse-item>			  
 	    <template slot="title"><h2>Support</h2></template>
 	    <el-col :span="24" class="row-bg">
-	      Donating monthly is the most impactful way to help us directly. While MnActivist will always be free to everyone, you will become the first to know about, and test, new features as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community. <br/>
-	      <el-col>
-		<template slot="title"><h4>Donation Levels</h4></template>
+	      <p style="padding: 15px;">Donating monthly is the most impactful way to help us directly. While {{siteName}} will always be free to everyone, you will become the first to know about, and test, new features as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community.</p>
+	     <el-col>
+		 
 
+		 <el-row :span="24" class="row-bg">
+			 <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :md="{span: 12, offset: 0}" :lg="{span: 12, offset: 0}" :xl="{span: 12, offset: 0}">
+		    	<span class="donor-box" style="float: center" v-html="donorBox" /> 
+		    </el-col>
+		    <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :md="{span: 12, offset: 0}" :lg="{span: 12, offset: 0}" :xl="{span: 12, offset: 0}">
+		    	<h3 align="center">Ledger</h3>
+		      <span class="" style="float: center; max-width: 500px;" v-html="donorRecord" /> 
+		     </el-col>
+	     </el-row>
 
-		<div style="padding:20px 25px 0px 0px;">  
-		<span>
-			<el-form :inline="true" ref="newDonation" :model="newDonation" label-width="20px">
-
-				<el-form-item label=" ">
-					<el-select v-model="amount" placeholder="Monthly Support">
-						<el-option
-						v-for="n in numbers"
-						:key="n"
-						:label="n"
-						:value="n">
-						</el-option>
-					</el-select>
-				</el-form-item>
-
-			<el-button  @click.prevent="purchaseStuff(amount)" type="primary">${{amount}} / month</el-button>
-
-			</el-form>
-			</span>
-		</div>
-<br/><br/>
-			<iframe class="airtable-embed" src="https://airtable.com/embed/shr5KmvdL1Bndz1bj?backgroundColor=green&viewControls=on" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent; border: 1px solid #ccc;"></iframe>
+			
 
 	      </el-col>
 
@@ -69,7 +57,7 @@
 
 	  <el-collapse-item>			  
 	    <template slot="title"><h2>Contact Us</h2></template>
-	    <p><strong>MnActivist</strong> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
+	    <p><b>{{siteName}} </b> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
 	    <p>If you would like to contact us, please email us at <a href="mailto:info@screamfreely.org">info@screamfreely.org</a>, or send us a comment directly below.</p>
 
 		<div>
@@ -129,11 +117,17 @@
 
 <script>
 import axios from 'axios';
+import api from '../store/api'
+
 export default {
     name: 'Main',
     data () {
 	return {
-	    msg: 'Welcome to MnActivist.Org',
+	    msg: 'Welcome to ' + api.site,
+	    aState: api.aState, 
+	    siteName: api.name,
+	    donorBox: api.donorBox,
+	    donorRecord: api.donorRecord,
 	    posts: [],
 	    isActive: false,
 	    newDonation: {},
@@ -260,6 +254,9 @@ a {
 }
 .tn {
   margin: 20px;
+}
+.donor-box iframe {
+	height: 650px !important;
 }
 </style>
 

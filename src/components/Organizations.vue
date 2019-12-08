@@ -31,6 +31,9 @@
 
 
 <script>
+import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
+
 export default {
   name: 'Organizations',
   data () {
@@ -38,33 +41,27 @@ export default {
       msg: 'Organizations',
       next: '',
       count: '',      
-      orgs: [],
     }
   },
   methods: {
-    handleChange(val) {
+  handleChange(val) {
         console.log(val);
     },
   getMore: function(next){
-      this.$http.get(next)
-      .then(function(response){
-        console.log(response);
-	this.orgs = this.orgs.concat(response.data.results);
-	this.next = response.data.next.replace('http', 'https');
-      });
-    }
-},
+      this.$store.dispatch('events/getNewOrgs', next)
+      mapState({events: state => state.orgs.orgs })
+    },
+  },
   created: function(){
       console.log('created ran');
-      this.$http.get('https://api.mnactivist.org/api/organizations')
-//      this.$http.get('http://localhost:8000/api/organizations')
-      .then(function(response){
-	this.orgs = response.data.results;
-	this.next = response.data.next.replace('http', 'https');
-	this.count = response.data.count;
-	console.log(this.orgs);
-      });
-  }
+      this.$store.dispatch('orgs/getOrgs')
+  },
+  computed: mapState({
+    // isAuth: state => state.auth.token,
+    orgs: state => state.orgs.orgs,
+    //next: state => state.orgs.next,
+    //count: state => state.orgs.count,
+  }),
 }
 </script>
 

@@ -1,29 +1,8 @@
 <template>
   <div class="org_main">
     <el-row :gutter="24" type="flex" class="row-bg" justify="center">
-      <el-col :span="12"> <h1>{{ org.name }} </h1></el-col>
-      <el-col :span="2" v-if="org.extras.followable == true"><a href="#" v-on:click="follow = !follow">0</a></el-col>
+      <el-col :span="18"> <h1>{{ org.name }}</h1></el-col>
     </el-row>
-
-    <el-row v-if="follow == true" :gutter="24" type="flex" class="row-bg" justify="center">
-
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="Timeline">
-          <el-checkbox v-model="checked"/>
-        </el-form-item>
-        <el-form-item label="Email">
-          <el-checkbox v-model="checked"/>
-        </el-form-item>
-        <el-form-item label="Text">
-          <el-checkbox v-model="checked"/>
-        </el-form-item>
-        <el-form-item>
-          <el-button size="small" type="primary" @click="onSubmit">Query</el-button>
-        </el-form-item>
-      </el-form>
-
-    </el-row>
-
 
     <el-row v-if="org.memberships.length > 0" :gutter="24" type="flex" class="row-bg" justify="left">
 	<el-col :span="15" :offset="4">
@@ -62,16 +41,11 @@ export default {
     return {
       msg: 'Organization List',
       org: {},
-      follow: 'False',
     }
   },
   methods: {
     handleChange(val) {
         console.log(val);
-    },
-    onSubmit() {
-        this.follow = 'False';
-        console.log('val');
     }
   },      
   created: function(){

@@ -7,7 +7,7 @@ import Main from '@/components/Main'
 import Resources from '@/components/Resources'
 
 import Organizations from '@/components/Organizations'
-import Events from '@/components/Events'
+import Events from '@/components/Events2'
 import People from '@/components/People'
 import Bills from '@/components/Bills'
 
@@ -18,7 +18,7 @@ import Bill from '@/components/Bill'
 
 import Pics from '@/components/Pics'
 import Donate from '@/components/Donate'
-import Apple from '@/components/Volunteers'
+import Apple from '@/components/Apple'
 import Quote from '@/components/Quotes'
 
 Vue.use(Router)
@@ -63,7 +63,7 @@ export default new Router({
 			},
 
 			{
-				path: '/volunteer',
+				path: '/apple',
 				name: 'Apple',
 				components: {
 				header: Welcome,

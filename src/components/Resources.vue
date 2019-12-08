@@ -68,10 +68,6 @@ export default {
   },
   created: function(){
       console.log('created ran');
-//      this.$http.get('http://localhost:8000/api/orgs')
-//      .then(function(response){
-//	this.posts = response.data;	
-//      });
   }
 }
 </script>
