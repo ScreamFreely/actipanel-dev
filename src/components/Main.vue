@@ -13,16 +13,17 @@
 
 	<p>I learned to code for the sole reason of wanting to have an application whereby each morning I wake, I can know what my elected officials are up to.</p>
 
-	<p>If you would like to support my work, I encourage you to become a Patron to support monthly for little as a dollar per month; or maybe just buy me a coffee as a one-time thank you :)</p>
+	<p>If you would like to support my work, I encourage you to become a Patron to support monthly for little as a dollar per month ...</p>
 
 	<p>
 		<a class="patreon-btn" href="https://www.patreon.com/bePatron?u=6465397">
-            <img src="../../static/become_a_patron_button.png"/>
-        </a>
-    </p>
-    <p>
-    	<a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
-    </p>
+      <img src="../../static/become_a_patron_button.png"/>
+    </a>
+  </p>
+  <p>... or maybe just buy me a coffee as a one-time thank you :)</p>
+  <p>
+  	<a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
+  </p>
 
 	<h2>Data Policy</h2>
 		<div>
