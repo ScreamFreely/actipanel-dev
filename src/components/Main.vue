@@ -40,12 +40,6 @@
 
       </el-col>
     </el-row>
-
-    <el-row v-if="isActive" v-for="p in posts.slice(0, 8)" :gutter="24" type="flex" class="row-bg" justify="center">
-      <el-col :span="18">
-        <h2><a :href="p.name">{{p.name}}</a></h2>
-      </el-col> 
-    </el-row>
   </div>
 </template>
 
@@ -66,20 +60,6 @@ export default {
 		    newDonation: {},
 		    amount: '',
 		    newComment: {},
-	     	options: [
-	     		{
-		          value: 'sgn',
-		          label: 'Suggestion'
-		        }, 
-		        {
-		          value: 'dbg',
-		          label: 'Tech Issue'
-		        }, 
-		        {
-		          value: 'gte',
-		          label: 'Thank you'
-		        }, 
-	  		],
 		}
     },
     methods: {

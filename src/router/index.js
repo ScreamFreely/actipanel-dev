@@ -20,54 +20,47 @@ export default new Router({
 	    path: '/',
 	    name: 'Welcome',
 		component: Splash,
-		meta: {
-	      title: api.site,
-	      metaTags: [
-	        {
-	          name: 'description',
-	          content: 'The about page of our example app.'
-	        },
-	        {
-	          property: 'og:description',
-	          content: 'The about page of our example app.'
-	        }
-	      ]
-		 },
 		children: [
 			{
 			    path: '',
 			    components: {
 				header: Welcome,
 				main: Events
-			    }
+			    },
+			    meta: {
+			      title: api.site,
+			      metaTags: [
+			        {
+			          name: 'description',
+			          content: 'The about page of our example app.'
+			        },
+			        {
+			          property: 'og:description',
+			          content: 'The about page of our example app.'
+			        }
+			      ]
+				},
 			},
 			{
 			    path: '/about',
 			    components: {
 				header: Welcome,
 				main: Main
-			    }
-			},
-		]
-	    },
-	    {
-	    path: '/events',
-	    name: 'Events',
-		component: Splash,
-		children: [
-			{
-			    path: '/events',
-			    components: {
-				header: Welcome,
-				main: Events
-			    }
-			},
-			{
-			    path: '/event/ocd-event/:id',
-			    components: {
-				header: Welcome,
-				main: Event
-			    }
+			    },
+			    meta: {
+			      title: 'About ' + api.site,
+			      metaTags: [
+			        {
+			          name: 'description',
+			          content: 'The about page of our example app.'
+			        },
+			        {
+			          property: 'og:description',
+			          content: 'The about page of our example app.'
+			        }
+			      ]
+				},
+
 			},
 		]
 	    },
