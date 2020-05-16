@@ -12,7 +12,7 @@
       <p>Or check out the curriculum below to start learning to code and contribute yourself.</p>
 
       <div>
-<div class="gumroad-product-embed" data-gumroad-product-id="RebelCoding"><a href="https://gumroad.com/l/RebelCoding">Loading...</a></div>
+        <div class="gumroad-product-embed" data-gumroad-product-id="RebelCoding"><a href="https://gumroad.com/l/RebelCoding">Loading...</a></div>
       </div>
 
     </center>

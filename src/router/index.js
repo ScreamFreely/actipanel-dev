@@ -8,7 +8,7 @@ import Splash from '@/components/Splash'
 import Main from '@/components/Main'
 import Events from '@/components/Events'
 import Pics from '@/components/Pics'
-
+import api from '../store/api'
 
 Vue.use(Router)
 
@@ -20,6 +20,19 @@ export default new Router({
 	    path: '/',
 	    name: 'Welcome',
 		component: Splash,
+		meta: {
+	      title: api.site,
+	      metaTags: [
+	        {
+	          name: 'description',
+	          content: 'The about page of our example app.'
+	        },
+	        {
+	          property: 'og:description',
+	          content: 'The about page of our example app.'
+	        }
+	      ]
+		 },
 		children: [
 			{
 			    path: '',
