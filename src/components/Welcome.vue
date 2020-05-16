@@ -35,10 +35,6 @@ export default {
       msg: api.site,
       platform: '',
       links: [
-        { type: 'fas', title: 'Events', name: 'calendar-alt', link: '/events' },
-        { type: 'fas', title: 'People', name: 'user-circle', link: '/people' },
-        { type: 'fas', title: 'Policy', name: 'file-alt', link: '/policy' },
-        { type: 'fas', title: 'Orgs', name: 'hands-helping', link: '/organizations' }, 
   //      { type: 'fab', title: 'iOS', name: 'itunes-note', link: '//bit.ly/MnActivist_for_iOS' },
   //      { type: 'fab', title: 'Android', name: 'google-play', link: '//bit.ly/MnActivist_for_Android' },
   //      { name: 'Add-a-Quote', link: '/quote' },
@@ -46,10 +42,6 @@ export default {
       ],
       }
   },
-  methods: {},
-  created: function(){
-      console.log('created ran');
-  }
 }
 </script>
 
@@ -59,8 +51,7 @@ export default {
   height: 75px;
   border: 2px #fff solid;
   border-radius: 15px;
-  padding: 5px;
-  
+  padding: 5px; 
 }
 .baseBorder {
     border: 4px #000 solid;
@@ -68,7 +59,6 @@ export default {
     padding: 5px;
 }
 .auxRow {
-#    margin-top: -25px;
     overflow: hidden;
 }
 .push-item {
@@ -81,7 +71,6 @@ export default {
 h1, h2 {
   font-weight: normal;
   color: #2F835D;	    
-#  color: #000000;	
 }
 a {
   color: #2F835D;	  

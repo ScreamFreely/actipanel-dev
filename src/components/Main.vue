@@ -9,98 +9,34 @@
       <center>
        <h1>{{ msg }}</h1>
 
-	<p>We are an organization with a website<span v-if="siteName == 'MnActivist'">, and a <a href="http://bit.ly/MnActivist_for_Android">phone app</a>,</span> aiming to be a one-stop apolitical shop for political information in {{ aState }}, starting with event listings. <span v-if="siteName == 'MnActivist'">Follow our <a href="https://facebook.com/mnactivist">FB</a> and <a href="https://twitter.com/mnactivist">Twitter</a> for daily pictures of upcoming events!</span> We are just starting out; we've got an idea, proof of concept, and we'd love your support! Either through a follow or a donation to help increase public access to our government.</p>
+	<p>{{ siteName }} is the project of a single individual, Canin Carlos a.k.a. Culture Clap.</p>
 
-	<p>We are also looking to teach and train new coders to expand and maintain our database. Using an organizational structure anchored by co-directors of differing racial and gender identies, we seek to maintain an open organizational culture that allows individuals space for the their experiences. We feel that this is a sector ripe to provide such opportunities to both grow our communities and our work-force.</p>
+	<p>I learned to code for the sole reason of wanting to have an application whereby each morning I wake, I can know what my elected officials are up to.</p>
+
+	<p>If you would like to support my work, I encourage you to become a Patron to support monthly for little as a dollar per month; or maybe just buy me a coffee as a one-time thank you :)</p>
+
+	<p>
+		<a class="patreon-btn" href="https://www.patreon.com/bePatron?u=6465397">
+            <img src="../../static/become_a_patron_button.png"/>
+        </a>
+    </p>
+    <p>
+    	<a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
+    </p>
+
+	<h2>Data Policy</h2>
+		<div>
+			<p>I'm pretty strict about the following; people, including myself, don't want our data tracked and sold.</p>
+
+			<p>Yea, this site is free to use; but our users will never been the product.</p>
+
+			<p>Right now, I'm just measuring growth by Patreon support, Twitter followers</p>
+		</div>
+
+	<h2>Contact Us</h2>
+	    <p>The best way to contact me is through <a href="https://www.instagram.com/cultureclap" target="_blank">Instagram,</a> as I'm not on <a href="https://twitter.com/cultureclap" target="_blank">Twitter,</a> as much as I used to be.</p>
 
 	</center>
-	<el-collapse @change="handleChange">
-	  <el-collapse-item>			  
-	    <template slot="title"><h2>Support</h2></template>
-	    <el-col :span="24" class="row-bg">
-	      <p style="padding: 15px;">Donating monthly is the most impactful way to help us directly. While {{siteName}} will always be free to everyone, you will become the first to know about, and test, new features as they are made available. Additionally you are able to track how your contribution is used to bring greater access to all in our community, and greater stability to members of our community.</p>
-	     <el-col>
-		 
-
-		 <el-row :span="24" class="row-bg">
-			 <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :md="{span: 12, offset: 0}" :lg="{span: 12, offset: 0}" :xl="{span: 12, offset: 0}">
-		    	<span class="donor-box" style="float: center" v-html="donorBox" /> 
-		    </el-col>
-		    <el-col :xs="{span: 24, offset: 0}" :sm="{span: 24, offset: 0}" :md="{span: 12, offset: 0}" :lg="{span: 12, offset: 0}" :xl="{span: 12, offset: 0}">
-		    	<h3 align="center">Ledger</h3>
-		      <span class="" style="float: center; max-width: 500px;" v-html="donorRecord" /> 
-		     </el-col>
-	     </el-row>
-
-			
-
-	      </el-col>
-
-	    </el-col>
-
-	  </el-collapse-item>
-
-
-	  <el-collapse-item>			  
-	    <template slot="title"><h2>Data Policy</h2></template>
-	    <div>
-	      <p>Users don't want to be tracked, we're already tracked enough.</p>
-
-	      <p>So we're choosing to measure our growth by how many people follow us on social media, how many folks join the mailing list, and how many folks contribute. That's it. We're not logging any IP addresses on any of our domains, there's no Google Analytics, or the like, running in the background either. Nor will we ever sell your data, to anyone. To be honest, that information isn't as important to us as your participation and conversation.</p>
-
-	      <p>We want to build trust founded on respect for your time and intelligence as a user of our platforms; that's another reason we're open source! So we aren't going to send you emails every week updating you with policy. Though we are building a mechanism through which you can read and sign-up for email and text updates on what interests you!</p>
-
-	      <p>We want to build tools that are useful to those who must budget their time, and still want to be civically engaged.</p>
-	    </div>
-	  </el-collapse-item>
-
-
-	  <el-collapse-item>			  
-	    <template slot="title"><h2>Contact Us</h2></template>
-	    <p><b>{{siteName}} </b> is being built and maintained by <a href="https://screamfreely.org">ScreamFreely</a>, a non-profit based out of Minneapolis, Minnesota.</p>
-	    <p>If you would like to contact us, please email us at <a href="mailto:info@screamfreely.org">info@screamfreely.org</a>, or send us a comment directly below.</p>
-
-		<div>
-
-		 <el-form ref="newComment" :model="newComment" label-width="20px">
-		  
-		  <el-form-item label=" ">
-		    <el-select v-model="newComment.comment_type" placeholder="Comment Type">
-		        <el-option
-		        v-for="item in options"
-		        :key="item.value"
-		        :label="item.label"
-		        :value="item.value">
-		        </el-option>
-		    </el-select>
-		  </el-form-item>
-		  
-		  <el-form-item label=" ">
-		    <el-input placeholder="Email Address" v-model="newComment.email"></el-input>
-		  </el-form-item>
-		  
-		  <el-form-item label=" ">
-		    <el-input
-		      type="textarea"
-		        autosize
-		          placeholder="What's up?"
-		            v-model="newComment.description">
-		    </el-input>
-		  </el-form-item>
-		  
-		  <el-form-item label=" ">
-		  <span>
-		  {{ num1 }} + {{ num2 }} = <input placeholder="??" size="5" v-model="newComment.numnum"></input>
-		  </span>
-		  </el-form-item>
-
-		  <el-button type='primary' @click="sendComment(newComment)">Submit</el-button>
-		  
-		  </el-form>
-		</div>
-	  </el-collapse-item>
-
-	</el-collapse>
 
       </el-col>
     </el-row>
@@ -122,124 +58,35 @@ import api from '../store/api'
 export default {
     name: 'Main',
     data () {
-	return {
-	    msg: 'Welcome to ' + api.site,
-	    aState: api.aState, 
-	    siteName: api.name,
-	    donorBox: api.donorBox,
-	    donorRecord: api.donorRecord,
-	    posts: [],
-	    isActive: false,
-	    newDonation: {},
-	    amount: '',
-	    newComment: {},
-	    numbers: ['1', '3', '5', '7', '10', '12', '15', '20', '25', '35', '50', '75', '100', '250', '500', '1000'],
-	    stripe_token: {},
-	    subscription: 0,
-	    //            price: 999,
-	    //            stripe_instance: {},
-	    //            order_status: 'READY'
-	    num1: Math.floor((Math.random() * 50) + 1),
-      	num2: Math.floor((Math.random() * 10) + 1),
-     	harold: '0',
-     	options: [{
-          value: 'sgn',
-          label: 'Suggestion'
-        }, {
-          value: 'dbg',
-          label: 'Tech Issue'
-        }, {
-          value: 'gte',
-          label: 'Thank you'
-        }, 
-  ],
-	}
+		return {
+		    msg: 'About ' + api.site,
+		    aState: api.aState, 
+		    siteName: api.name,
+		    isActive: false,
+		    newDonation: {},
+		    amount: '',
+		    newComment: {},
+	     	options: [
+	     		{
+		          value: 'sgn',
+		          label: 'Suggestion'
+		        }, 
+		        {
+		          value: 'dbg',
+		          label: 'Tech Issue'
+		        }, 
+		        {
+		          value: 'gte',
+		          label: 'Thank you'
+		        }, 
+	  		],
+		}
     },
     methods: {
-	handleChange(val) {
-            console.log(val);
-	},
-	purchaseStuff: function(number){
-		if (number == ''){return}
-	    this.subscription = number;
-            this.stripe_instance.open({
-		name: 'MnActivist',
-		description: 'Monthly Subscription',
-		amount: number * 100,
-            })
-            console.log('attempting to get a token');
-        },
-        sendData2Server: function(){
-            this.order_status= "PENDING";
-            this.$http.post('/process_payment', {token_id: this.stripe_token.id, price: this.subscription, email: this.stripe_token.email })
-		.then((response) => {
-                    console.log(response.body);
-                    this.order_status= "SUCCESSFULLY COMPLETED";
-		},(response) => {
-                    // error callback
-                    console.log(response.body);
-                    this.order_status= "FAILED";
-		});
-        },	
-
-        sendComment: function(data){
-			console.log(data.numnum, this.harold);
-			if (this.harold == data.numnum) {
-				axios.post('https://api.mnactivist.org/api/add-comment/', data,)
-				.then(response => {
-					this.num1 = Math.floor((Math.random() * 50) + 1),
-					this.num2 = Math.floor((Math.random() * 10) + 1),
-					this.harold = this.num1 + this.num2;
-					this.newComment = {};
-					this.$message({
-						message: "Success! We got your comment, thank you.",
-						type: 'success',
-						duration: '5000',
-					});
-				})
-      			.catch(error => {
-        		console.log(error);
-        		this.$message({
-				    message: "Check required fields.",
-				    type: 'error',
-				    duration: '5000',
-				});
-    		})
-	      } else {
-
-	        this.$message({
-			    message: "Invalid answer.",
-			    type: 'error',
-			    duration: '5000',
-			    });
-	      	}
-    	},
-
-    },
-
-    mounted: function(){
-    	let self = this;
-	console.log(self);
-        this.stripe_instance = StripeCheckout.configure({
-            key: 'pk_live_bmTPtIT5SziXC2f12at3TFPs',    //put your own publishable key here
-            image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-            locale: 'auto',
-            token: function(token) {
-		console.log('got a token. sending data to localhost', token);
-		self.stripe_token= token;
-		self.sendData2Server();
-            }
-        });
-    },
-
-    created: function(){
-    this.harold = this.num1 + this.num2;
-	console.log('created ran');
-	//      this.$http.get('http://localhost:8000/api/orgs')
-	//      .then(function(response){
-	//	this.posts = response.data;	
-	//      });
-    }
+		handleChange(val) {
+	            console.log(val);
+		},
+	}
 }
 
 </script>
@@ -252,11 +99,64 @@ h1, h2 {
 a {
   color: #2F835D;	  
 }
+
 .tn {
   margin: 20px;
 }
-.donor-box iframe {
-	height: 650px !important;
+
+.patreon-btn img {
+  border-radius: 10px;
 }
+
+.bmc-button img {
+  height: 34px !important;
+  width: 35px !important;
+  margin-bottom: 1px !important;
+  box-shadow: none !important;
+  border: none !important;
+  vertical-align: middle !important;
+}
+
+.bmc-button{
+  padding: 7px 15px 7px 10px !important;
+  line-height: 35px !important;
+  height:51px !important;
+  text-decoration: none !important;
+  display:inline-flex !important;
+  color:#FFFFFF !important;
+  background-color:#FF813F !important;
+  border-radius: 5px !important;
+  border: 1px solid transparent !important;
+  padding: 7px 15px 7px 10px !important;
+  font-size: 22px !important;
+  letter-spacing: 0.6px !important;
+  box-shadow: 0px 1px 2px rgba(190, 190, 190, 0.5) !important;
+  -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+  margin: 0 auto !important;
+  font-family:'Cookie', cursive !important;
+  -webkit-box-sizing: border-box !important;
+  box-sizing: border-box !important;
+}
+
+.bmc-button span {
+	margin-left:5px;font-size:28px !important;
+}
+
+.bmc-button:hover, .bmc-button:active, .bmc-button:focus {
+  -webkit-box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+  text-decoration: none !important;
+  box-shadow: 0px 1px 2px 2px rgba(190, 190, 190, 0.5) !important;
+  opacity: 0.85 !important;
+  color:#FFFFFF !important;
+}
+
+@media (min-width: 1200px){
+  p {
+    margin: auto !important;
+    width: 60% !important;
+    padding: 10px !important;
+  }
+}
+
 </style>
 

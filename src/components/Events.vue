@@ -1,8 +1,7 @@
 <template>
   <div class="event_main">
-  <center><h3>Calendar of Events</h3>
-
-
+  <center>
+    <h3>Calendar of Events</h3>
   </center>
   <br/>
   
@@ -10,6 +9,7 @@
   	  <el-col :span="22" :offset="1" justify="center">
 
 <center>
+
  <p>Just have a Facebook Event?</p>
 
     <el-form ref="newFBEvent" :model="newFBEvent" label-width="20px">
@@ -23,8 +23,8 @@
 </center>
     <br/><br/>
 
-
   	  <el-form ref="newEvent" :model="newEvent" label-width="20px">
+
 	      <el-form-item label=" " prop="name" required>
     <el-input placeholder="Event Name" v-model="newEvent.name"></el-input>
     </el-form-item>
@@ -50,11 +50,11 @@
   placeholder="Select time">
 </el-time-select>
 </el-form-item>
-  {{}}
+  
   <el-form-item label=" " required>
     <el-select v-model="newEvent.event_type" placeholder="Event Type">
         <el-option
-        v-for="item in doptions"
+        v-for="item in options"
         :key="item.value"
         :label="item.label"
         :value="item.value">
@@ -100,14 +100,6 @@
 	</el-form-item>
 
 
-
-
-
-
-
-
-
-
 	<el-button type='primary' @click="sendEvent(newEvent)">Submit</el-button>
 	<el-button @click="addEvent = !addEvent" icon="el-icon-close"/>
 	
@@ -126,39 +118,48 @@
 
 
 <el-row v-if="addEvent == false" v-for="e in events" :gutter="24" type="flex" class="row-bg" justify="center"> 
-     <el-col :span="20" class="events">
-  	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
-        <el-col :span="12">	
-          <h2>{{e.name}}</h2>
 
-	  <a v-if="cals" :href="'sendToGCal(e)'">gCal</a>
-	  
+  <el-col :span="20" class="events">
+  	<el-row :span="18" type="flex" class="row-bg hidden-sm-and-down" justify="center">
+        <el-col :span="12">
+          <a v-if="e.sources[0].url" :href="e.sources[0].url" target="_blank">
+            <h2>{{e.name}}</h2>
+          </a>
+          <h2 v-else-if="!e.sources.url">{{e.name}}</h2>
+
+	         <a v-if="cals" :href="'sendToGCal(e)'">gCal</a>
         </el-col>
         <el-col :span="6" class="time">
-	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
-	  <br />
-	  <b class="push-day">{{e.start_date | moment("dddd")}}</b>
-	  <br />
-	  <b>{{ e.location.name }}</b>
-	  <br />
-          <b>{{ e.jurisdiction.name }}</b>
+        	  <b>{{e.start_date | moment("MMM D h:mma")}}</b>
+        	  <br />
+        	  <b class="push-day">{{e.start_date | moment("dddd")}}</b>
+        	  <br />
+        	  <b>{{ e.location.name }}</b>
+        	  <br />
+            <b>{{ e.jurisdiction.name }}</b>
         </el-col>	  
-     </el-row>
-     <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
-          <h2>{{e.name}}</h2>
-        </el-row>
-     <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">		<el-col :span="18" class="">
-	  <b>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</b>
-	  <br />
-	  <b>{{ e.location.name }} {{ e.jurisdiction.name }}</b>
-        </el-col>	  
-     </el-row>
-     </el-col>
-  </el-row>
+    </el-row>
 
-  <el-row :gutter="24" v-if="next !== null" type="flex" class="row-bg" justify="center">
+   <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">
+          <a v-if="e.sources[0].url" :href="e.sources[0].url" target="_blank">
+            <h2>{{e.name}}</h2>
+          </a>
+          <h2 v-else-if="!e.sources.url">{{e.name}}</h2>
+    </el-row>
+    <el-row :span="18" type="flex" class="row-bg hidden-md-and-up" justify="center">		
+      <el-col :span="18" class="">
+    	  <b>{{e.start_date | moment("dddd")}} {{e.start_date | moment("MMM D h:mma")}}</b>
+    	  <br />
+    	  <b>{{ e.location.name }} {{ e.jurisdiction.name }}</b>
+      </el-col>	  
+     </el-row>
+  </el-col>
+</el-row>
+
+<el-row v-if="next !== null" :gutter="24" type="flex" class="row-bg" justify="center">
   {{this.events.length}}<h1><a href="#" v-on:click="getMore(next)" aria-label="Load more events"><i class="el-icon-arrow-down"></i></a></h1>{{count}}
-  </el-row>
+</el-row>
+
 </div>
 </div>
 </template>
@@ -166,148 +167,73 @@
 <script>
 import axios from 'axios';
 import { mapState } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'Events',
-  data: function () {
+  data () {
     return {
-      msg: 'Events',
       addEvent: false,
-      cals: false,
-      callist: [],
-      calendar:'',
-      newEvent: {},
-      newFBEvent: {},
-      next: '',
-      count: '',      
-      events: [],
-      doptions: [{
-          value: 'org',
-          label: 'Organizational'
-        }, {
-          value: 'art',
-          label: 'Arts & Music'
-        }, {
-          value: 'edu',
-          label: 'Educational'
-        }, {
-          value: 'civ',
-          label: 'Civic'
-        }, {
-          value: 'govt',
-          label: 'Governmental'
-        },
-        {
-          value: 'demo',
-          label: 'Demonstration'
-        },
-	         ],
-      num1: Math.floor((Math.random() * 50) + 1),
-      num2: Math.floor((Math.random() * 10) + 1),
-      harold: 0,
+      calendar: '',
     }
   },
+
+  created: function(){
+      this.$store.dispatch('events/getCalendars')
+      this.$store.dispatch('events/getEvents')
+  },
+
+  computed: mapState({
+    events: state => state.events.events,
+    callist: state => state.events.callist,
+    newEvent: state => state.events.newEvent,
+    newFBEvent: state => state.events.newFBEvent,
+   // addEvent: state => state.events.addEvent,
+   // calendar: state => state.events.calendar,
+    cals: state => state.events.cals,
+    next: state => state.events.next,
+    count: state => state.events.count,
+  }),
+
   methods: {
   getMore: function(next){
-      this.$http.get(next)
-      .then(function(response){
-//        console.log(response);
-	this.events = this.events.concat(response.data.results);
-	this.next = response.data.next.replace('http', 'https');	
-      });
-    },
-    addToGCal: function(event){
+      this.$store.dispatch('events/getNewEvents', next)
+      mapState({events: state => state.events.events })
+  },
+
+  addToGCal: function(event){
       var time = event.start_date;
       var link = event.location.name;
       var city = event.jurisdation.name;
       var nlink = "https://calendar.google.com/calendar/r/eventedit?text=" + event.name + "&dates=" + event.start_date + "/" + event.start_date + "&ctz=America/Chicago"
       return nlink
     },
-    sendFBEvent: function(data){
+
+  sendFBEvent: function(data){
       var sdata = Object.assign( {}, data);
       if (sdata.link == '') { return };
-      axios.post('https://api.mnactivist.org/api/add-fb-event/', sdata,)
-      .then(response => {
-        this.newFBEvent = {};
-        this.addEvent = false;
-        this.$message({
-          message: "Success! We got your event, thank you.",
-          type: 'success',
-          duration: '5000',
-        });
-      })
-      .catch(error => {
-//      console.log(error);
-        this.$message({
-          message: "Check required fields.",
-          type: 'error',
-          duration: '5000',
-        });
-      })
+      this.$store.dispatch('events/newFbEvent', sdata)
     },
  
   sendEvent: function(data){
       data.startdate = data.date + 'T' + data.time +':00+00:00';
-      sdata.location = data.loc_name + ' |0| ' + data.location;
-      if (sdata.link == '') { sdata.link = 'sf.org' };
+      data.location = data.loc_name + ' |0| ' + data.location;
+      if (data.link == '') { data.link = 'sf.org' };
       if (this.harold == data.numnum) {
-      axios.post('https://api.mnactivist.org/api/add-event/', data,)
-      .then(response => {
-    	this.newEvent = {};
-    	this.addEvent = false;
-      this.$message({
-    	  message: "Success! We got your event, thank you.",
-    	  type: 'success',
-    	  duration: '5000',
-    	  });
-    	})
-      .catch(error => {
-//        console.log(error);
-        this.$message({
-      	  message: "Check required fields.",
-      	  type: 'error',
-      	  duration: '5000',
-	     });
-	  })
+        this.$store.dispatch('events/newEvent', data)
       } else {
         this.$message({
-	  message: "Invalid answer.",
-	  type: 'error',
-	  duration: '5000',
-	  });
+      	  message: "Invalid answer.",
+      	  type: 'error',
+      	  duration: '5000',
+	      });
       }
     },
     
-   getCal: function(cal){
-       if (cal == 'All Events'){
-	var link = 'https://api.mnactivist.org/api/events';
-       } else if (cal == 'Arts & Music'){
-            var link = 'https://api.mnactivist.org/api/pics/art';
-       } else if (cal == 'Civic'){
-            var link = 'https://api.mnactivist.org/api/pics/civ';
-       } else if (cal == 'Educative'){
-            var link = 'https://api.mnactivist.org/api/pics/edu';
-       } else if (cal == 'Org Events'){
-            var link = 'https://api.mnactivist.org/api/pics/org';
-       } else if (cal == 'Demonstrations'){
-            var link = 'https://api.mnactivist.org/api/pics/demo';
-       } else {
-        cal = cal.replace(' ', '-');
-	      console.log("this is cal: ", cal);
-        var link = 'https://api.mnactivist.org/api/pics/' + cal;
-       }
-      axios.get(link)
-      .then(response => (this.events = response.data.results))      
+  getCal: function(cal){
+       this.$store.dispatch('events/getCalendar', cal)
+       mapState({events: state => state.events.events })    
     },
-  },
-  
-  created: function(){
-      console.log('created ran', this.events);
-      this.harold = this.num1 + this.num2;
-      axios.get('https://api.mnactivist.org/api/events')
-      .then(response => (this.events = response.data.results));
-      axios.get('https://api.mnactivist.org/api/jurisdictions')
-      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )));
   },
 }
 </script>

@@ -18,12 +18,9 @@ export default {
       orgs: [],
     }
   },
-  methods: {},
-  created: function(){
-      console.log('splash loaded');
-  }
 }
 </script>
+
 
 
 <style scoped>

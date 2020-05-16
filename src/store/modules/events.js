@@ -57,7 +57,6 @@ const actions = {
   getCalendars ({ commit }) {
     axios.get(api.base + 'api/jurisdictions')
       .then((response)=>{
-        console.log(response)
         let cals = response.data.results
         this.commit('events/setCalendars', cals)
       })
@@ -148,18 +147,16 @@ const actions = {
 // mutations
 const mutations = {
   setCalendars(state, calendars){
-    calendars.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )
+    // calendars.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )
     state.callist = calendars
   },
   setEvents(state, events){
     state.events = events
   },
   setNext(state, next){
-    console.log('got next', next)
     state.next = next
   },
   addEvents(state, newEvents){
-    console.log('new new', newEvents)
     state.events = state.events.concat(newEvents)
   }
 }

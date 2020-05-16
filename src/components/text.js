@@ -46,9 +46,9 @@ export default {
 	purchaseStuff: function(number){
 	    this.subscription = number;
             this.stripe_instance.open({
-		name: 'MnActivist',
-		description: 'Monthly Subscription',
-		amount: number * 100,
+				name: 'MnActivist',
+				description: 'Monthly Subscription',
+				amount: number * 100,
             })
             console.log('attempting to get a token');
         },
