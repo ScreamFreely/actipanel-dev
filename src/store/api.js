@@ -3,10 +3,10 @@
 import axios from 'axios'
 
 // const base = 'http://localhost:8000/'
-const site = 'MnActivist.Org'
-const name = 'MnActivist'
-const base = 'https://api.mnactivist.org/'
-const aState = 'Minnesota'
+const site = 'CaActivist.Org'
+const name = 'CaActivist'
+const base = 'https://api.Caactivist.org/'
+const aState = 'California'
 
 
 export default {

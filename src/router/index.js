@@ -25,11 +25,11 @@ export default new Router({
 		      metaTags: [
 		        {
 		          name: 'description',
-		          content: 'The about page of our example app.'
+		          content: 'Communication + Unity'
 		        },
 		        {
 		          property: 'og:description',
-		          content: 'The about page of our example app.'
+		          content: 'Communication + Unity'
 		        }
 		      ]
 		    },
