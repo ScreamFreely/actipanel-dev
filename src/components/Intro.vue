@@ -5,49 +5,39 @@
 
       <br>
 
-      <p>We are building an entry point for civic engagment & technology for all.</p>
+      <p>Heyo, my name is Canin and i'm building this as an entry point to civic engagment & technology.</p>
 
-      <p>Learn more by subscribing to the founder via <a>Substack</a>
+      <p>Right now <a href="http://www.mnactivist.org" target="_blank">MnActivist.Org</a> is the only domain with scrapers running. Though I'm working to get the rest of the domains populated as well.</p>
 
-      <p>Or check out the curriculum below to start learning to code and contribute yourself.</p>
+      <p>Learn more by subscribing to the founder via Substack</p>
+
+      <center>
+        <iframe src="https://screamfreely.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+      </center>
+
+      <p>I'm also building some materials to help those interested, learn to code.</p> 
+
+      It's an eight-step path to learn how to write web-scrapers, with the context necessary, so y'all can contribute.</p>
 
       <div>
-<div class="gumroad-product-embed" data-gumroad-product-id="RebelCoding"><a href="https://gumroad.com/l/RebelCoding">Loading...</a></div>
+          <a class="gumroad-button" href="https://gum.co/RebelCoding">Rebel Coding</a>
       </div>
+
+      <p>You can check out the materials at <a href="https://www.rebelcoding.com" target="_blank">RebelCoding.com</a> for free</p>
 
     </center>
   </div>
 </template>
-<script src="https://gumroad.com/js/gumroad-embed.js"></script>
 <script>
-import axios from 'axios';
-import { mapState } from 'vuex'
+import api from '../store/api'
+
 
 export default {
   name: 'Events',
   data: function () {
     return {
-      msg: 'CaActivist',
-      calendar:'',
-      newEvent: {},
-      newFBEvent: {},
-      next: '',
-      count: '',      
-      harold: 0,
+      msg: api.site,
     }
-  },
-  methods: {
-
-    
-  },
-  
-  created: function(){
-      console.log('created ran', this.events);
-      this.harold = this.num1 + this.num2;
-      axios.get('https://api.mnactivist.org/api/events')
-      .then(response => (this.events = response.data.results));
-      axios.get('https://api.mnactivist.org/api/jurisdictions')
-      .then(response => (this.callist = response.data.results, this.callist.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )));
   },
 }
 </script>
