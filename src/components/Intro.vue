@@ -3,8 +3,6 @@
     <center>
       <h1>Welcome to {{ msg }}</h1>
 
-      <br>
-
       <p>Heyo, my name is Canin and I'm building this as an entry point to civic engagment & technology.</p>
 
       <p>Right now <a href="http://www.mnactivist.org" target="_blank">MnActivist.Org</a> is the only domain with scrapers running; though I'm working to get the rest of the domains populated as well.</p>
@@ -19,7 +17,7 @@
 
       <p>I'm also building materials to help those interested, learn to code.</p> 
 
-      It's an eight-step path to learn how to write web-scrapers, with the context necessary, so y'all can contribute.</p>
+      <p>It's an eight-step path to learn how to write web-scrapers, with the context necessary, so y'all can contribute.</p>
 
       <div>
           <a class="gumroad-button" href="https://gum.co/RebelCoding">Rebel Coding</a>
@@ -42,8 +40,10 @@
       <p>... or maybe just buy me a coffee as a one-time thank you :)</p>
 
       <p>
-          <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
-        </p>
+        <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
+      </p>
+
+      <img src="../../static/profile3.jpg"/>
 
     </center>
   </div>
@@ -127,7 +127,7 @@ a {
 @media (min-width: 1200px){
   p {
     margin: auto !important;
-    width: 60% !important;
+    width: 40% !important;
     padding: 10px !important;
   }
 }
