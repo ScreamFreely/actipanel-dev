@@ -5,6 +5,8 @@
 
       <p>Heyo, my name is Canin and I'm building this as an entry point to civic engagment & technology.</p>
 
+      <p><img src="../../static/profile3.jpg" style="width: 100%;"/></p>
+
       <p>Right now <a href="http://www.mnactivist.org" target="_blank">MnActivist.Org</a> is the only domain with scrapers running; though I'm working to get the rest of the domains populated as well.</p>
 
       <p>Stay informed by subscribing to updates via Substack</p>
@@ -43,7 +45,7 @@
         <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
       </p>
 
-      <img src="../../static/profile3.jpg"/>
+      <p>Thanks for droppin' by!</p>
 
     </center>
   </div>
