@@ -63,20 +63,20 @@ const actions = {
   },
   getCalendar ({commit }, cal) {
     if (cal == 'All Events'){
-           var link = 'https://api.mnactivist.org/api/events';
+           var link = api.base + 'api/events';
        } else if (cal == 'Arts & Music'){
-            var link = 'https://api.mnactivist.org/api/pics/art';
+            var link = api.base + 'api/pics/art';
        } else if (cal == 'Civic'){
-            var link = 'https://api.mnactivist.org/api/pics/civ';
+            var link = api.base + 'api/pics/civ';
        } else if (cal == 'Educative'){
-            var link = 'https://api.mnactivist.org/api/pics/edu';
+            var link = api.base + 'api/pics/edu';
        } else if (cal == 'Org Events'){
-            var link = 'https://api.mnactivist.org/api/pics/org';
+            var link = api.base + 'api/pics/org';
        } else if (cal == 'Demonstrations'){
-            var link = 'https://api.mnactivist.org/api/pics/demo';
+            var link = api.base + 'api/pics/demo';
        } else {
         cal = cal.replace(' ', '-');
-        var link = 'https://api.mnactivist.org/api/pics/' + cal;
+        var link = api.base + 'api/pics/' + cal;
        }
       axios.get(link)
       .then((response) => {
@@ -147,6 +147,7 @@ const actions = {
 // mutations
 const mutations = {
   setCalendars(state, calendars){
+    calendars.push({'id': 'null', 'name': 'All Events'})
     // calendars.push({'id': 'null', 'name': 'Arts & Music'}, {'id': 'null', 'name': 'Civic'}, {'id': 'null', 'name': 'Demonstrations'}, {'id': 'null', 'name': 'Educative'}, {'id': 'null', 'name': 'Org Events'}, {'id': 'null', 'name': 'All Events'} )
     state.callist = calendars
   },

@@ -113,7 +113,7 @@
   <el-option v-for="cal in callist" :key="cal.name" :label="cal.name" :value="cal.name"></el-option>
 </el-select>
 <el-button v-on:click="getCal(calendar)" icon="el-icon-refresh"/>
-<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus">Event</el-button>
+<!--<el-button v-on:click='addEvent = !addEvent' icon="el-icon-plus">Event</el-button>-->
 </span></center>
 
 
