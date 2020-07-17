@@ -1,85 +1,69 @@
 <template>
-  <div class="org_main">
-
-    <el-row>
-      <el-col>
-      <center>
-       <h1>{{ msg }}</h1>
-
-    	<p>{{ siteName }} is the project of a single individual who learned to code for the sole reason of wanting of building this project.</p>
-
-      <p>To have an application whereby each morning they could wake, and know what their elected officials are up to.</p>
-
-      <p>Big shout-out to <a href="https://wwww.openstate.org" target="_blank">OpenStates</a> for laying the groundwork!!</p>
-
-    	<p>If you dig the idea too, and would like to support the work, please <a href="https://www.patreon.com/bePatron?u=6465397">become a Patron</a> supporting monthly for as little as <b>$1 per month</b> ...</p>
-
-    	<p>
-    		<a class="patreon-btn" href="https://www.patreon.com/bePatron?u=6465397">
-          <img src="../../static/become_a_patron_button.png"/>
-        </a>
-      </p>
-        Or if you'd like to buy me a cup of java ... 
-        <br/><br/> 
-        it would be appreciated:
-        <br/><br/>
-        <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
-
-        <br/><br/>
-        I also use <a href="https://paypal.me/DreamFreely" target="_blank">PayPal</a> & <a href="https://venmo.com/CultureClap" target="_blank">Venmo</a>, if you'd like ...
-      </p>
-
-      <br/>
-    	<h1>Data Policy</h1>
-    		<div>
-    			<p>I'm pretty strict about the following:</p>
-
-          <p>People, including myself, don't want our data tracked and sold.</p>
-
-    			<p>Yea, this site is free to use; but our users <i>will never</i> be the product.</p>
-
-    			<p>Right now, I'm just measuring growth by Patreon support</p>
-
-          <p>All of the code used to run this project is available on <a href="https://www.github.com/screamfreely" target="_blank">GitHub</a> as well.</p>
-
-    		</div>
-
-      <h1>Thanks for droppin' by!</h1>
-      <p><a href="https://www.cultureclap.com" target="_blank"><img src="../../static/profile3.jpg" style="width: 100%;"/></a></p>
-
-    	</center>
-
-      </el-col>
-    </el-row>
-  </div>
+    <div class="org_main">
+        <el-row>
+            <el-col>
+                <center>
+                    <h1>{{ msg }}</h1>
+                    <p>{{ siteName }} is the project of a single individual who learned to code for the sole reason of wanting of building this project.</p>
+                    <p>To have an application whereby each morning they could wake, and know what their elected officials are up to.</p>
+                    <p>Big shout-out to <a href="https://wwww.openstate.org" target="_blank">OpenStates</a> for laying the groundwork!!</p>
+                    <p>If you dig the idea too, and would like to support the work, please <a href="https://www.patreon.com/bePatron?u=6465397">become a Patron</a> supporting monthly for as little as <b>$1 per month</b> ...</p>
+                    <p>
+                        <a class="patreon-btn" href="https://www.patreon.com/bePatron?u=6465397">
+                            <img src="../../static/become_a_patron_button.png" />
+                        </a>
+                    </p>
+                    Or if you'd like to buy me a cup of java ...
+                    <br /><br />
+                    it would be appreciated:
+                    <br /><br />
+                    <a class="bmc-button" target="_blank" href="https://www.buymeacoffee.com/cultureclap"><img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy me a coffee"><span>Buy me a coffee</span></a>
+                    <br /><br />
+                    I also use <a href="https://paypal.me/DreamFreely" target="_blank">PayPal</a> & <a href="https://venmo.com/CultureClap" target="_blank">Venmo</a>, if you'd like ...
+                    <br />
+                    <h1>Data Policy</h1>
+                    <div>
+                        <p>I'm pretty strict about the following:</p>
+                        <p>People, including myself, don't want our data tracked and sold.</p>
+                        <p>Yea, this site is free to use; but our users <i>will never</i> be the product.</p>
+                        <p>Right now, I'm just measuring growth by Patreon support</p>
+                        <p>All of the code used to run this project is available on <a href="https://www.github.com/screamfreely" target="_blank">GitHub</a> as well.</p>
+                    </div>
+                    <h1>Thanks for droppin' by!</h1>
+                    <p><a href="https://www.cultureclap.com" target="_blank"><img src="../../static/profile3.jpg" style="width: 100%;" /></a></p>
+                </center>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 
-
 <script>
-import axios from 'axios';
 import api from '../store/api'
 
 export default {
     name: 'Main',
-    data () {
-		return {
-		    msg: 'About ' + api.site,
-		    aState: api.aState, 
-		    siteName: api.name,
-		    isActive: false,
-		    newDonation: {},
-		    amount: '',
-		    newComment: {},
-		}
+    metaInfo: {
+      title: api.site,
+      titleTemplate: 'About | %s'
+    },
+    data() {
+        return {
+            msg: 'About ' + api.site,
+            aState: api.aState,
+            siteName: api.name,
+            isActive: false,
+            newDonation: {},
+            amount: '',
+            newComment: {},
+        }
     },
     methods: {
-		handleChange(val) {
-	            console.log(val);
-		},
-	}
+        handleChange(val) {
+            console.log(val);
+        },
+    }
 }
-
 </script>
 
 <style scoped>

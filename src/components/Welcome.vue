@@ -8,7 +8,7 @@
             <h3>Menu<i class="el-icon-arrow-down el-icon--right"></i></h3>
           </span>
           <el-dropdown-menu slot="dropdown">
-               <el-dropdown-item v-for="l in links"><h3><a :href="l.link" @mouseover="platform = s.platform" @mouseout="platform = ''"><i :class="[l.type + ' fa-' + l.name + ' fa-2x']"></i></a> {{l.title}}</h3></el-dropdown-item>  
+               <el-dropdown-item v-for="l in links" v-bind:key="l.title"><h3><a :href="l.link" @mouseover="platform = s.platform" @mouseout="platform = ''"><i :class="[l.type + ' fa-' + l.name + ' fa-2x']"></i></a> {{l.title}}</h3></el-dropdown-item>  
           </el-dropdown-menu>
         </el-dropdown>
       </el-col>
@@ -16,8 +16,8 @@
       <el-col :span="15" :offset="4" class="hidden-sm-and-down">
         <el-row type="flex" class="row-bg" justify="end">
             <span style="color: #000;padding: 8px;font-size:1.35em;"><b>{{platform}}</b></span>
-            <span v-for="s in links" :span="2" :offset="1" style="text-align: right;margin: 0px 25px 0px 15px;">
-              <a :href="s.link" @mouseover="platform = s.title" @mouseout="platform = ''"><i :class="[s.type + ' fa-' + s.name + ' fa-2x']"></i></a> 
+            <span v-for="s in links"  v-bind:key="s.title" :span="2" :offset="1" style="text-align: right;margin: 0px 25px 0px 15px;">
+              <a :href="s.link" @mouseover="platform = s.title" @mouseout="platform = ''"><font-awesome-icon :icon="[s.type, s.name,]" size="2x"/></a> 
             </span>
          </el-row>
       </el-col>
