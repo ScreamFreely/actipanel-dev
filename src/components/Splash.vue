@@ -10,8 +10,14 @@
 </template>
 
 <script>
+import api from '../store/api'
+
 export default {
   name: 'Splash',
+  metaInfo: {
+    title: api.site,
+    titleTemplate: 'Splash | %s'
+  },
   data () {
     return {
       msg: 'Welcome to MnActivist',
